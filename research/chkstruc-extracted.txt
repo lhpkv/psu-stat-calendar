@@ -1,0 +1,1142 @@
+
+ ระบบตรวจสอบการลงทะเบียนเรียนตามหลักสูตร คณะวิทยาศาสตร์
+ Toggle navigation
+ Logout 
+ ต้องการดูเฉพาะรายวิชาที่นักศึกษาลงทะเบียนเรียน คลิกที่นี่
+แสดงหน้าสำหรับพิมพ์
+แสดงหน้าเฉพาะรายวิชาที่ลงทะเบียนเรียน
+ตรวจสอบการลงทะเบียนตามหลักสูตร ของ
+นาย ลุฏฟี  บินมะสาและ  6710210764   สาขา สถิติ
+(ปีการศึกษา 2/2568   หน่วยกิตสะสม(จากระบบ SIS PSU) 82   เกรดเฉลี่ยสะสม(จากระบบ SIS PSU) 2.13)
+สถานภาพ  กำลังศึกษา ตามโครงสร้างหลักสูตร
+วิทยาศาสตรบัณฑิต สาขาวิชาสถิติ หลักสูตรปรับปรุง พ.ศ.2564 ใช้กับนักศึกษารหัส 64-68 (แผนปกติ)
+จำนวนหน่วยกิตรวมตลอดหลักสูตร  138  หน่วยกิต
+ผลคะแนน Exit-Exam : -
+นักศึกษา : แบบปกติ
+ 1. หมวดวิชาศึกษาทั่วไป  
+ จำนวน  
+ 30  หน่วยกิต  
+ 
+ 
+ 1.1 สาระที่ 1 ศาสตร์พระราชาและประโยชน์เพื่อนมนุษย์  
+ จำนวน  
+ 4  หน่วยกิต  
+ 
+ 
+ 
+ 
+ 1. 
+001-102 THE KING'S PHILO & SUST DEVE (2)
+ 
+ 
+ 2. 
+001-102 SUFFI ECONOMY PHILO&SUSTAIN (2)
+ 
+ 
+ 3. 
+003-001 VOL LEADER FOR SUS COM DEL (3)
+ 
+ -->
+ A 
+ 
+ 4. 
+315-200 BENEFIT OF MANKINDS (1)
+ 
+ 
+ 5. 
+388-100 HEALTH FOR ALL (1)
+ 
+ -->
+ P 
+ 
+ 
+ รวมจำนวนหน่วยกิต(ไม่นับเกรด E เป็นเงื่อนไขใช้สำหรับระบบนี้เท่านั้น) 
+ 4 
+ 
+ 1.2 สาระที่ 2 ความเป็นพลเมืองและชีวิตที่สันติ  
+ จำนวน  
+ 5  หน่วยกิต  
+ 
+ 
+ 
+ 
+ 1. 
+895-001 GOOD CITIZENS (2)
+ 
+ -->
+ B 
+ 
+ 2. 
+950-102 HAPPY AND PEACEFUL LIFE (3)
+ 
+ -->
+ B 
+ 
+ 
+ รวมจำนวนหน่วยกิต(ไม่นับเกรด E เป็นเงื่อนไขใช้สำหรับระบบนี้เท่านั้น) 
+ 5 
+ 
+ 1.3 สาระที่ 3 การเป็นผู้ประกอบการ  
+ จำนวน  
+ 1  หน่วยกิต  
+ 
+ 
+ 
+ 
+ 1. 
+001-103 IDEA TO ENTREPRENEURSHIP (1)
+ 
+ 
+ 2. 
+460-001 IDEA TO ENTREPRENEURSHIP (1)
+ 
+ -->
+ WC 
+ 
+ 
+ รวมจำนวนหน่วยกิต(ไม่นับเกรด E เป็นเงื่อนไขใช้สำหรับระบบนี้เท่านั้น) 
+ 1 
+ 
+ 1.4 สาระที่ 4 การอยู่อย่างรู้เท่าทัน และการรู้ดิจิทัล   
+ จำนวน  
+ 4  หน่วยกิต  
+ 
+ 
+ 1.4.1 การอยู่อย่างรู้เท่าทัน  
+ จำนวน  
+ 2  หน่วยกิต  
+ 
+ 
+ 
+ 
+ 1. 
+315-201 LIFE IN THE FUTURE (2)
+ 
+ 
+ 2. 
+315-201G7 LIFE IN THE FUTURE (2)
+ 
+ -->
+ D+ 
+ 
+ 
+ รวมจำนวนหน่วยกิต(ไม่นับเกรด E เป็นเงื่อนไขใช้สำหรับระบบนี้เท่านั้น) 
+ 2 
+ 
+ 1.4.2 การรู้ดิจิทัล  
+ จำนวน  
+ 2  หน่วยกิต  
+ 
+ 
+ 
+ 
+ 1. 
+315-104 DIGITAL TECHNOLOGY LITERACY (2)
+ 
+ 
+ 2. 
+315-104G4 DIGITAL TECHNOLOGY LITERACY (2)
+ 
+ -->
+ C 
+ 
+ 3. 
+345-104 DIGITAL TECHNOLOGY LITERACY (2)
+ 
+ 
+ 
+ รวมจำนวนหน่วยกิต(ไม่นับเกรด E เป็นเงื่อนไขใช้สำหรับระบบนี้เท่านั้น) 
+ 2 
+ 
+ 1.5 สาระที่ 5 การคิดเชิงระบบ การคิดเชิงตรรกะและตัวเลข  
+ จำนวน  
+ 4  หน่วยกิต  
+ 
+ 
+ 1.5.1 การคิดเชิงระบบ  
+ จำนวน  
+ 2  หน่วยกิต  
+ 
+ 
+ 1.5.2 การคิดเชิงตรรกะและตัวเลข  
+ จำนวน  
+ 2  หน่วยกิต  
+ 
+ 
+ จัดการเรียนการสอนเป็นภาษาอังกฤษ
+ 
+ 1. 
+142-129 ORGANIC THINKING (2)
+ 
+ 
+ 2. 
+472-118 POCKET MONEY (2)
+ 
+ 
+ 
+ รวมจำนวนหน่วยกิต(ไม่นับเกรด E เป็นเงื่อนไขใช้สำหรับระบบนี้เท่านั้น) 
+ 0 
+ 
+ 1.6 สาระที่ 6 ภาษาและการสื่อสาร  
+ จำนวน  
+ 4  หน่วยกิต  
+ 
+ 
+ นักศึกษาลงทะเบียนเรียน 2 รายวิชาตามกลุ่มคะแนน O-NET ของตนเอง ดังนี้ กลุ่มที่ 1 คะแนน 0-30 ให้ลงทะเบียนเรียนวิชา 890-002 และ 890-003 กลุ่มที่ 2 คะแนน 31-50 ให้ลงทะเบียนเรียนวิชา 890-002 และ 890-003 กลุ่มที่ 3 คะแนน 51-70 ให้ลงทะเบียนเรียนวิชา 890-003 และ 890-004 กลุ่มที่ 4 คะแนน 71 ขึ้นไป ให้ลงทะเบียนเรียนวิชา 890-004 และ 890-005
+ 
+ 1. 
+890-002 EVERYDAY ENGLISH (2)
+ 
+ 
+ 2. 
+890-003 ENGLISH ON THE GO (2)
+ 
+ 
+ 3. 
+890-004 ENGLISH IN THE DIGITAL WORLD (2)
+ 
+ 
+ 4. 
+890-005 ENGLISH FOR ACADEMIC SUCCESS (2)
+ 
+ 
+ 5. 
+890-103G1 ENGLISH ON THE GO (2)
+ 
+ -->
+ D+ 
+ 
+ 
+ รวมจำนวนหน่วยกิต(ไม่นับเกรด E เป็นเงื่อนไขใช้สำหรับระบบนี้เท่านั้น) 
+ 2 
+ 
+ 1.7 สาระที่ 7 สุนทรียศาสตร์และกีฬา  
+ จำนวน  
+ 2  หน่วยกิต  
+ 
+ 
+ เลือกเรียนจากสาระต่อไปนี้ จำนวน 2 หน่วยกิต (สำหรับนักศึกษาตั้งแต่ รหัส 65 เป็นต้นไป บังคับเรียนวิชาสุนทรียศาสตร์ 1 หน่วยกิต และกีฬา 1 หน่วยกิต รวมเป็น 2 หน่วยกิต)
+ 
+ 1. 
+061-001 AESTHETICS OF THAI DANCE (1)
+ 
+ 
+ 2. 
+125-101 CREATIVE CRAFT (1)
+ 
+ 
+ 3. 
+142-135 PAPER CRAFT (1)
+ 
+ 
+ 4. 
+142-136 SCULPTURE (1)
+ 
+ 
+ 5. 
+142-137 EVERYONE CAN DRAW (1)
+ 
+ 
+ 6. 
+142-138 THE SOUND OF MUSICS (1)
+ 
+ 
+ 7. 
+142-139 THROUGH THE WORLD OF ART (1)
+ 
+ 
+ 8. 
+142-234 LIFE IS BEAUTIFUL (1)
+ 
+ 
+ 9. 
+142-237 THE DESIGN & THEIR BLACK ATT (1)
+ 
+ 
+ 10. 
+315-102 THE AESTHETIC IN PHOTOGRAPHY (1)
+ 
+ 
+ 11. 
+315-102G8 THE AESTHETIC IN PHOTOGRAPHY (2)
+ 
+ -->
+ B 
+ 
+ 12. 
+340-162 THE AESTHETIC IN PHOTOGRAPHY (1)
+ 
+ 
+ 13. 
+472-116 LOCAL ARTS AND FABRIC (1)
+ 
+ 
+ 14. 
+472-117 KEEP FIT: ENJOY HEAL & HAP LIF (1)
+ 
+ 
+ 15. 
+895-020 THAI KHIM (1)
+ 
+ 
+ 16. 
+895-021 SINGING, PLAYING, DANCING (1)
+ 
+ 
+ 17. 
+895-022 RHYTHM AND SONG (1)
+ 
+ 
+ 18. 
+895-023 GUITAR (1)
+ 
+ 
+ 19. 
+895-024 UKULELE (1)
+ 
+ 
+ 20. 
+895-025 HARMONICA (1)
+ 
+ 
+ 21. 
+895-026 DRAMA AND SELF-REFLECTION (1)
+ 
+ 
+ 22. 
+895-027 APPRECIATION IN THAI LANGUAGE (1)
+ 
+ 
+ 23. 
+895-028 CREATIVE DRAWING (1)
+ 
+ 
+ 24. 
+895-030 SWIMMING (1)
+ 
+ 
+ 25. 
+895-031 TENNIS (1)
+ 
+ 
+ 26. 
+895-032 BASKETBALL (1)
+ 
+ 
+ 27. 
+895-033 TRACK AND FIELD (1)
+ 
+ 
+ 28. 
+895-034 SOCIAL DANCE (1)
+ 
+ 
+ 29. 
+895-035 PETANQUE (1)
+ 
+ 
+ 30. 
+895-036 CAMPING (1)
+ 
+ 
+ 31. 
+895-037 BADMINTON (1)
+ 
+ 
+ 32. 
+895-038 TABLE TENNIS (1)
+ 
+ 
+ 33. 
+895-039 EXERCISE FOR HEALTH (1)
+ 
+ 
+ 
+ รวมจำนวนหน่วยกิต(ไม่นับเกรด E เป็นเงื่อนไขใช้สำหรับระบบนี้เท่านั้น) 
+ 2 
+ 
+ 1.8 วิชาเลือก  
+ จำนวน  
+ 6  หน่วยกิต  
+ 
+ 
+ 1.8.1 ภาษาและการสื่อสาร  
+ ไม่น้อยกว่า  
+ 2  หน่วยกิต  
+ 
+ 
+ เลือกเรียนภาษาและการสื่อสาร อย่างน้อย จำนวน 2 หน่วยกิต จากรายวิชาดังนี้
+ 
+ 1. 
+890-010 IMPROVING ENG WRITING SKILLS (2)
+ 
+ 
+ 2. 
+890-011 READING ALL AROUND (2)
+ 
+ 
+ 3. 
+890-012 STRA READ FOR GREAT COMPREHEN (2)
+ 
+ 
+ 4. 
+890-014 ENG PRONUN THROUGH SONGS (2)
+ 
+ 
+ 5. 
+890-015 ENG GRAM FOR REAL LIFE COM (2)
+ 
+ 
+ 6. 
+890-020 ENGLISH CONVERSATION (2)
+ 
+ 
+ 7. 
+890-021 FROM LISTENING TO SPEAKING ENG (2)
+ 
+ 
+ 8. 
+890-022 PRESEN & PUBLIC SPEAK IN ENG (2)
+ 
+ 
+ 9. 
+890-023 LEARN ENG THROUGH CULTURES (2)
+ 
+ 
+ 10. 
+890-024 CREATING ENGLISH SHORT FILMS (2)
+ 
+ 
+ 11. 
+890-025 STU SKI IN ENG FOR HIGHER STU (2)
+ 
+ 
+ 12. 
+890-026 READING TO WRITE IN ENGLISH (2)
+ 
+ 
+ 13. 
+890-030 ENG COMMUNICA FOR BUSINESS (2)
+ 
+ 
+ 14. 
+890-032 ENGLISH FOR TRAVELERS (2)
+ 
+ 
+ 15. 
+890-033 ENG FOR NEW GENE OF CON & ENT (2)
+ 
+ 
+ 16. 
+890-040 WRITING FOR JOB APPLICATION (2)
+ 
+ 
+ 17. 
+890-041 ENGLISH FOR JOB INTERVIEW (2)
+ 
+ 
+ 18. 
+890-050 GOOGLE TRANSLATE ME (2)
+ 
+ 
+ 19. 
+890-060 ENGLISH TWENTY-FOUR/SEVEN (2)
+ 
+ 
+ 20. 
+890-061 ENGLISH FOR DIGITAL LITERACY (2)
+ 
+ 
+ 21. 
+890-070 WINNING ENG TEST FOR EMPLOY (2)
+ 
+ 
+ 22. 
+890-071 WINNING ENG TEST FOR HIGH STU (2)
+ 
+ 
+ 23. 
+891-010 BASIC JAPANESE (2)
+ 
+ 
+ 24. 
+891-011 JAPANESE CONVER IN DAILY LIFE (2)
+ 
+ 
+ 25. 
+891-012 JAPANESE CONVER IN THE WORK (2)
+ 
+ 
+ 26. 
+891-020 BASIC CHINESE (2)
+ 
+ 
+ 27. 
+891-021 CHINESE CONVER IN DAILY LIFE (2)
+ 
+ 
+ 28. 
+891-022 CHINESE CONVER IN THE WORK (2)
+ 
+ 
+ 29. 
+891-030 BASIC MALAY (2)
+ 
+ 
+ 30. 
+891-031 MALAY CONVER IN DAILY LIFE (2)
+ 
+ 
+ 31. 
+891-032 MALAY CONVERSATION FOR TOURISM (2)
+ 
+ 
+ 32. 
+891-040 BASIC KOREAN (2)
+ 
+ 
+ 33. 
+891-041 KOREAN CONVER IN DAILY LIFE (2)
+ 
+ 
+ 34. 
+891-042 KOREAN CONVER IN THE WORK (2)
+ 
+ 
+ 35. 
+891-050 BASIC GERMAN (2)
+ 
+ 
+ 
+ รวมจำนวนหน่วยกิต(ไม่นับเกรด E เป็นเงื่อนไขใช้สำหรับระบบนี้เท่านั้น) 
+ 0 
+ 
+ 1.8.2 เลือก  
+ จำนวน  
+ 4  หน่วยกิต  
+ 
+ 
+ ให้นักศึกษาเลือกเรียนรายวิชาจากกลุ่มสาระที่กำหนด จากรายวิชาต่อไปนี้
+ 
+ 1. 
+001-101 ASEAN STUDIES (2)
+ 
+ 
+ 2. 
+001-131 HEALTHY BODY AND MIND (2)
+ 
+ 
+ 3. 
+190-404 NATURAL THERAPY (2)
+ 
+ 
+ 4. 
+315-103 INTRO TO INTELLECTUAL PROPER (2)
+ 
+ 
+ 5. 
+315-203 KEY TO NATURE (2)
+ 
+ 
+ 6. 
+332-100 KEY TO NATURE (2)
+ 
+ 
+ 7. 
+336-214 SMART EATING AND BEING HEALTHY (2)
+ 
+ 
+ 8. 
+336-215 SAFETY LIFE FROM TOXIC SUBSTAN (2)
+ 
+ 
+ 9. 
+336-216 DRUG AND HEALTH (2)
+ 
+ 
+ 10. 
+340-103 APPLIED SCIENCE FOR LIFE (2)
+ 
+ 
+ 11. 
+340-151 SCI & TECHNOLOGY IN DAILY LIFE (2)
+ 
+ 
+ 12. 
+348-103 APPLIED NANOTECHNOLOGY (2)
+ 
+ 
+ 13. 
+874-192 LAW RELAT TO OCCU & EVERYDAY (2)
+ 
+ 
+ 14. 
+874-193 GEN PRINC OF LAW & JUDICI PRO (2)
+ 
+ 
+ 15. 
+874-194 TAXATION AND LIFE (2)
+ 
+ 
+ 16. 
+874-195 HUMAN RIGHTS AND CITIZENSHIP (2)
+ 
+ 
+ 17. 
+895-040 PSYCHOLOGY OF LOVE (2)
+ 
+ 
+ 18. 
+895-041 ETHICAL PHILOSOPHY (2)
+ 
+ 
+ 19. 
+895-042 ART OF COM IN TH LAN IN THE 21 (2)
+ 
+ 
+ 20. 
+895-043 THAI USAGE (2)
+ 
+ 
+ 21. 
+895-044 CONTEMPORARY THAI LANGUAGE (2)
+ 
+ 
+ 22. 
+895-046 THOUGHTS AND COMMUNICATION (2)
+ 
+ 
+ 23. 
+895-047 HISTORY IN MOVIES (2)
+ 
+ 
+ 24. 
+895-048 DRAWING AND PAINTING (2)
+ 
+ 
+ 25. 
+895-049 ART FOR HAPPINESS (2)
+ 
+ 
+ 26. 
+895-050 ARTS IN MULTICULTURAL SOCIETY (2)
+ 
+ 
+ 27. 
+895-051 CONTEMPORARY ARTS AND CULTURE (2)
+ 
+ 
+ 28. 
+895-052 CREATIVE TOURISM (2)
+ 
+ 
+ 29. 
+895-053 VOLUNTEER TOURISM (2)
+ 
+ 
+ 30. 
+895-054 LEARN THROUGH BACKPACK TRIPS (2)
+ 
+ 
+ 31. 
+895-055 WORLD HERITAGE JOURNEY (2)
+ 
+ 
+ 32. 
+895-056 SONGKHLA STUDIES (2)
+ 
+ 
+ 33. 
+895-057 THAI CLASSICAL MUSIC (2)
+ 
+ 
+ 34. 
+895-058 THAI MUSIC ART (2)
+ 
+ 
+ 35. 
+895-059 WESTERN MUSIC (2)
+ 
+ 
+ 36. 
+895-060 PHYSI EDUCATION & RECREATION (2)
+ 
+ 
+ 37. 
+895-061 FIT AND FIRM (2)
+ 
+ 
+ 38. 
+895-062 ACTIVE LIFESTYLE (2)
+ 
+ 
+ 39. 
+895-063 FAT TO FIT (2)
+ 
+ 
+ 40. 
+895-070 WISDOM OF LIVING (2)
+ 
+ 
+ 
+ รวมจำนวนหน่วยกิต(ไม่นับเกรด E เป็นเงื่อนไขใช้สำหรับระบบนี้เท่านั้น) 
+ 0 
+ 2. หมวดวิชาเฉพาะ  
+ จำนวน  
+ 102  หน่วยกิต  
+ 
+ 
+ 2.1 กลุ่มวิชาวิทยาศาสตร์พื้นฐาน  
+ จำนวน  
+ 24  หน่วยกิต  
+ 
+ 
+ 
+ 
+ 1. 
+322-101 CALCULUS I (3)
+ 
+ -->
+ D 
+ 
+ 2. 
+322-102 CALCULUS II (3)
+ 
+ -->
+ WD 
+ 
+ 3. 
+324-101 GENERAL CHEMISTRY I (3)
+ 
+ -->
+ D+ 
+ 
+ 4. 
+325-101 GENERAL CHEMISTRY LAB I (1)
+ 
+ -->
+ B 
+ 
+ 5. 
+330-101 PRINCIPLES OF BIOLOGY I (3)
+ 
+ -->
+ C 
+ 
+ 6. 
+331-101 PRINCIPLES OF BIOLOGY LAB I (1)
+ 
+ -->
+ C 
+ 
+ 7. 
+332-101 FUNDAMENTAL PHYSICS (3)
+ 
+ -->
+ D 
+ 
+ 8. 
+333-101 FUNDAMENTAL PHYSICS LABORATORY (1)
+ 
+ -->
+ C+ 
+ 
+ 9. 
+346-111 PRINCIPLES OF STATISTICS (3)
+ 
+ -->
+ D+ 
+ 
+ 10. 
+346-361 DATABASE & SQL FOR DATA ANALY (3)
+ 
+ -->
+      [Reg]
+ 
+ 
+ รวมจำนวนหน่วยกิต(ไม่นับเกรด E เป็นเงื่อนไขใช้สำหรับระบบนี้เท่านั้น) 
+ 24 
+ 
+ 2.2 กลุ่มวิชาบังคับ  
+ จำนวน  
+ 55  หน่วยกิต  
+ 
+ 
+ บังคับเรียน 57 หน่วยกิต (สำหรับแผนปกติ) และบังคับเรียน 61 หน่วยกิต (สำหรับนักศึกษาแผนสหกิจศึกษา)
+ 
+ 1. 
+346-161 STANDARD STATISTICAL SOFTWARE (3)
+ 
+ -->
+ C 
+ 
+ 2. 
+346-221 PROBABILITY THEORY (3)
+ 
+ 
+ 3. 
+346-221 PROBABILITY FOR STATISTICS (3)
+ 
+ 
+ 4. 
+346-222 NONPARAMETRIC STATISTICS (3)
+ 
+ -->
+ C 
+ 
+ 5. 
+346-223 MATHEMATICAL STATISTICS I (3)
+ 
+ -->
+ D 
+ 
+ 6. 
+346-231 INTRODUCTION TO INSURANCE (3)
+ 
+ -->
+ B+ 
+ 
+ 7. 
+346-232 REGRESSION ANALYSIS (4)
+ 
+ -->
+ D+ 
+ 
+ 8. 
+346-241 MO:LINEAR ALGEBRA & OPERA RES (5)
+ 
+ -->
+ C 
+ 
+ 9. 
+346-261 BASIC COMPUTER PROGRAMMING (2)
+ 
+ -->
+ C 
+ 
+ 10. 
+346-321 MATHEMATICAL STATISTICS II (3)
+ 
+ -->
+      [Reg]
+ 
+ 11. 
+346-322 SAMPLING TECHNIQUES (3)
+ 
+ -->
+      [Reg]
+ 
+ 12. 
+346-331 APPLIED MULTIVARIATE ANALYSIS (3)
+ 
+ -->
+      [Reg]
+ 
+ 13. 
+346-332 PREDICTIVE ANALYTIC (3)
+ 
+ 
+ 14. 
+346-333 INTRO TO EXPERIMENTAL DESIGNS (3)
+ 
+ 
+ 15. 
+346-334 INTRO TO RESEAR METHODOLO (3)
+ 
+ 
+ 16. 
+346-351 BIG DATA ANALYTICS & APPLICA (3)
+ 
+ 
+ 17. 
+346-441 STATISTICAL QUALITY CONTROL (3)
+ 
+ 
+ 18. 
+346-451 STAT FOR DATA SCI & BUSI ANALY (3)
+ 
+ 
+ 19. 
+346-471 SEMINAR IN STATISTICS (1)
+ 
+ 
+ 20. 
+346-472 COOPERATIVE EDUCATION (6)
+ 
+ 
+ 21. 
+346-491 PROJECT IN STATISTICS I (1)
+ 
+ 
+ 22. 
+346-492 PROJECT IN STATISTICS II (2)
+ 
+ 
+ 
+ รวมจำนวนหน่วยกิต(ไม่นับเกรด E เป็นเงื่อนไขใช้สำหรับระบบนี้เท่านั้น) 
+ 32 
+ 
+ 2.3 กลุ่มวิชาเลือก  
+ จำนวน  
+ 21  หน่วยกิต  
+ 
+ 
+ 2.3.1 เลือกรายวิชาที่เปิดสอนโดยหลักสูตรคณิตศาสตร์และสถิติ  
+ ไม่น้อยกว่า  
+ 12  หน่วยกิต  
+ 
+ 
+ เลือกรายวิชาที่เปิดสอนโดยหลักสูตรคณิตศาสตร์และสถิติ ไม่น้อยกว่า 12 หน่วยกิต 
+ 
+ 1. 
+322-201 ADVANCED CALCULUS (3)
+ 
+ 
+ 2. 
+322-211 PRINCIPLES OF MATHEMATICS (3)
+ 
+ 
+ 3. 
+322-252 MO: COMPUTATIONAL MATHEMATICS (5)
+ 
+ 
+ 4. 
+322-322 INTRO TO GRAPH THEORY (3)
+ 
+ 
+ 5. 
+322-324 COMBINATORICS (3)
+ 
+ 
+ 6. 
+322-355 INTRO TO RANDOM PROCESSES (3)
+ 
+ 
+ 7. 
+346-335 LONGITUDINAL DATA ANALYSIS (3)
+ 
+ 
+ 8. 
+346-336 CATEGORICAL DATA ANALYSIS (3)
+ 
+ 
+ 9. 
+346-341 APP OF STAT TO HEALTH SCIENCES (3)
+ 
+ 
+ 10. 
+346-342 INTRODUCTION TO QUEUING MODELS (3)
+ 
+ 
+ 11. 
+346-343 INVENTORY MANAGEMENT (3)
+ 
+ -->
+ W 
+ 
+ 12. 
+346-344 MODULE: ACTUARIAL SCIENCE (7)
+ 
+ -->
+      [Reg]
+ 
+ 13. 
+346-371 JOB TRAINING IN STATISTICS (1)
+ 
+ 
+ 14. 
+346-371 JOB TRAINING IN STATISTICS (1)
+ 
+ 
+ 15. 
+346-431 INTRO TO SURVIVAL ANALYSIS (3)
+ 
+ -->
+      [Reg]
+ 
+ 16. 
+346-432 INTRO TO POPULATION STATISTIC (3)
+ 
+ 
+ 17. 
+346-442 STOCHASTIC PROCESS (3)
+ 
+ 
+ 18. 
+346-443 DECISION THEORY (3)
+ 
+ 
+ 19. 
+346-444 SIMULATION FOR LOGISTICS MANAG (3)
+ 
+ 
+ 20. 
+346-445 WAREH MANAGE FOR LOGISTICS 4.0 (3)
+ 
+ 
+ 21. 
+346-481 SP TOP IN STATISTICS I (2)
+ 
+ 
+ 22. 
+346-482 SP TOP IN STATISTICS II (3)
+ 
+ 
+ 23. 
+346-482 SP(FIN MAT& RISK MA FOR STAT) (3)
+ 
+ 
+ 
+ รวมจำนวนหน่วยกิต(ไม่นับเกรด E เป็นเงื่อนไขใช้สำหรับระบบนี้เท่านั้น) 
+ 10 
+ 
+ 2.3.2 เลือกเรียนรายวิชาที่เปิดสอนโดยคณะหรือหลักสูตรอื่น  
+ จำนวน  
+ 9  หน่วยกิต  
+ 
+ 
+ เลือกเรียนรายวิชาที่เปิดสอนโดยคณะหรือหลักสูตรอื่น ไม่เกิน 9 หน่วยกิต (สำหรับแผนปกติ) เรียน 5 หน่วยกิต (สำหรับแผนสหกิจศึกษา)
+ 
+ 1. 
+225-355 PRODUCT & OPERATIONS MANAGE (3)
+ 
+ 
+ 2. 
+308-231 STRUCTURED PROGRAM & APPLI (3)
+ 
+ 
+ 3. 
+308-232 WEB DEVELOPMENT AND DESIGN (3)
+ 
+ 
+ 4. 
+308-233 ALGORITHM & DATA STRUC (3)
+ 
+ 
+ 5. 
+308-311 INFOR SYS ANAL & DESIGN (3)
+ 
+ 
+ 6. 
+308-352 DATA MINING AND VISUALIZATIONS (3)
+ 
+ 
+ 7. 
+344-212 WEB APPLICATION PROGRAMMING (3)
+ 
+ 
+ 8. 
+344-312 MOBILE APPLICATION DEVELOPMENT (3)
+ 
+ 
+ 9. 
+344-334 BUSINESS INTELLIGENT SYSTEM (3)
+ 
+ 
+ 10. 
+345-211 PRINCIPLES OF PROGRAMMING (3)
+ 
+ 
+ 11. 
+460-101 PRINCIPLES OF MARKETING (3)
+ 
+ 
+ 12. 
+460-202 MO:DIGI, INNO & ENTREP IN PRAC (7)
+ 
+ 
+ 13. 
+476-201 INTRO TO LOGISTICS MANAGEMENT (3)
+ 
+ 
+ 14. 
+542-261 SURVEYING, MAP & AERIAL PHOTO (3)
+ 
+ 
+ 15. 
+875-309 INTRODUCTION TO ECONOMETRICS (4)
+ 
+ 
+ 16. 
+876-102 PRIN OF ECONOMIC & APPLICATION (3)
+ 
+ 
+ 
+ รวมจำนวนหน่วยกิต(ไม่นับเกรด E เป็นเงื่อนไขใช้สำหรับระบบนี้เท่านั้น) 
+ 0 
+ 3. หมวดวิชาเลือกเสรี  
+ จำนวน  
+ 6  หน่วยกิต  
+ 
+ 1. 145-101 COMPANION ANIMALS (3) A(1/2567)
+ 
+ -->
+ A 
+ 
+ 2. 193-031G8 NATURAL THERAPY (2) B+(2/2567)
+ 
+ -->
+ B+ 
+ 
+ 3. 200-104G4 ARTIFICIAL INTELLIGENCE LITERACY (2) A(2/2567)
+ 
+ -->
+ A 
+ 
+ 4. 315-202G2B THINKING AND REASONING (2) B+(1/2568)
+ 
+ -->
+ B+ 
+ 
+ 5. 315-205G8 SCIENCE ENTREPRENEUR PITCHING (2) A(1/2568)
+ 
+ -->
+ A 
+ 
+ 6. 346-221 PROBABILITY FOR STATISTICS (3) D(1/2568)
+ 
+ -->
+ D 
+ 
+ 7. 346-435 INTRO TO STATISTICAL MODELS (3) (1/2569)
+ 
+ -->
+      [Reg]
+ 
+ 8. 473-001G2A FINANCE LITERACY FOR A BETTER LIFE (2) E(2/2568)
+ 
+ -->
+ E 
+ 
+ 9. 820-100G7 SAVE EARTH SAVE US (2) D(2/2567)
+ 
+ -->
+ D 
+ 
+ 10. 820-200G7 DISRUPTED SEA (2) C(2/2568)
+ 
+ -->
+ C 
+ 
+ 11. 890-101G1 ESSENTIAL ENGLISH (2) U(1/2567)
+ 
+ -->
+ U 
+ 
+ 12. 890-102G1 EVERYDAY ENGLISH (2) E(2/2567),C(2/2568)
+ 
+ -->
+ C 
+ 
+ 
+ รวมจำนวนหน่วยกิต(ไม่นับเกรด E เป็นเงื่อนไขใช้สำหรับระบบนี้เท่านั้น) 
+ 23 
+ รวมจำนวนหน่วยกิตลงทะเบียนเรียนแล้วทั้งหมด(ไม่นับเกรด E เป็นเงื่อนไขใช้สำหรับระบบนี้เท่านั้น) 
+107 
+Y = เทียบโอนรายวิชา กรณี ย้ายคณะ สาขาวิชา
+Q = เทียบโอนรายวิชา กรณี สอบคัดเลือกได้ใหม่
+Reg = ลงทะเบียนแล้ว/รอเกรด
+      = รายวิชาที่ไม่ลงทะเบียน
+(ไม่นับเกรด E) เป็นเงื่อนไขใช้สำหรับระบบนี้เท่านั้น โดยให้นักศึกษาตรวจสอบความถูกต้องกับระบบ SIS PSU อีกครั้ง
+กรณีนักศึกษาโอนรายวิชาหรือเทียบรายวิชา ระบบนี้ยังตรวจสอบได้ระดับหนึ่งเท่านั้น สามารถตรวจสอบผลการเทียบโอนเพิ่มเติมได้ที่เว็บ sis.psu.ac.th
+This page took 2.6406seconds to load 

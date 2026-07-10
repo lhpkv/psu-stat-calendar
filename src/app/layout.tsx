@@ -12,7 +12,7 @@ const kanit = Kanit({
 
 export const metadata: Metadata = {
   title: 'PSU Credit Checker — เช็คหน่วยกิตหลักสูตร ม.อ.',
-  description: 'เช็ควิชาครบ/ขาด หลักสูตร วท.บ. สถิติ / วิทยาการคอมพิวเตอร์ ม.อ. หาดใหญ่',
+  description: 'เช็ควิชาครบ/ขาด หลักสูตร วท.บ. สถิติ ม.อ. หาดใหญ่',
 }
 
 export default function RootLayout({

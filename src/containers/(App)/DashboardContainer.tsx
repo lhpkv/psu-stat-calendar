@@ -41,9 +41,7 @@ export default function DashboardPage() {
         <div className="relative flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
           <div className="space-y-2">
             <p className="text-sm font-medium text-white/65">
-              {profile.major === 'comp_sci'
-                ? `วท.บ. ${MAJOR_LABEL.comp_sci} · ${profile.plan === 'coop' ? 'แผนสหกิจ' : 'แผนปกติ'}`
-                : `${profile.plan === 'coop' ? 'แผนสหกิจ' : 'แผนปกติ'} · ${profile.geFramework === 'core2564' ? 'สาระ 2564' : 'GE 2565'} · วท.บ. ${MAJOR_LABEL.statistics}`}
+              {`${profile.plan === 'coop' ? 'แผนสหกิจ' : 'แผนปกติ'} · ${profile.geFramework === 'core2564' ? 'สาระ 2564' : 'GE 2565'} · วท.บ. ${MAJOR_LABEL.statistics}`}
             </p>
             <h2 className="flex items-center gap-2 text-2xl font-semibold tracking-tight md:text-[1.7rem]">
               สวัสดี, {name} <Hand className="size-6 text-white/80" />

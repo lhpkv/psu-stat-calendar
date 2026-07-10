@@ -8,12 +8,11 @@ export interface TakenCourse {
   section?: string
 }
 
-/** สาขาที่เลือกตอนสมัคร — กำหนดหลักสูตรทั้งแอป */
-export type Major = 'statistics' | 'comp_sci'
+/** สาขา — แอปรองรับเฉพาะสถิติ */
+export type Major = 'statistics'
 
 export const MAJOR_LABEL: Record<Major, string> = {
   statistics: 'สถิติ',
-  comp_sci: 'วิทยาการคอมพิวเตอร์',
 }
 
 export interface Profile {

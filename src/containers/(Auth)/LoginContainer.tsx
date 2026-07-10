@@ -8,14 +8,8 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { cn } from '@/lib/utils'
 import { toast } from 'sonner'
-import { GraduationCap, Mail, Lock, Eye, EyeOff, Loader2, ShieldAlert, Sigma, Cpu } from 'lucide-react'
+import { GraduationCap, Mail, Lock, Eye, EyeOff, Loader2, ShieldAlert } from 'lucide-react'
 import { AuthShell } from '@/components/(Auth)/AuthShell'
-import type { Major } from '@/lib/types'
-
-const MAJORS: { value: Major; label: string; icon: typeof Sigma }[] = [
-  { value: 'statistics', label: 'สถิติ', icon: Sigma },
-  { value: 'comp_sci', label: 'วิทยาการคอมพิวเตอร์', icon: Cpu },
-]
 
 const STRENGTH = [
   null,
@@ -41,7 +35,6 @@ export default function LoginPage() {
   const router = useRouter()
   const envOk = hasSupabaseEnv()
   const [mode, setMode] = useState<'signin' | 'signup'>('signin')
-  const [major, setMajor] = useState<Major>('statistics')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPw, setShowPw] = useState(false)
@@ -101,7 +94,6 @@ export default function LoginPage() {
         const { error } = await supabase.auth.signUp({
           email,
           password,
-          options: { data: { major } },
         })
         if (error) throw error
         toast.success('สมัครสำเร็จ! ถ้าระบบให้ยืนยันอีเมล โปรดเช็คกล่องจดหมาย')
@@ -144,27 +136,6 @@ export default function LoginPage() {
           </button>
         ))}
       </div>
-
-      {mode === 'signup' && (
-        <div className="mt-5 space-y-2 animate-in fade-in duration-300">
-          <Label>สาขาที่สมัคร</Label>
-          <div className="grid grid-cols-2 gap-2">
-            {MAJORS.map(({ value, label, icon: Icon }) => (
-              <button
-                key={value}
-                type="button"
-                onClick={() => setMajor(value)}
-                data-active={major === value}
-                className="group flex flex-col items-center gap-1.5 rounded-xl border border-border bg-card/50 px-3 py-3 text-center transition-colors hover:bg-accent/50 focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none data-[active=true]:border-primary data-[active=true]:bg-primary/5 data-[active=true]:ring-1 data-[active=true]:ring-primary/40"
-              >
-                <Icon className="size-5 text-muted-foreground transition-colors group-data-[active=true]:text-primary" strokeWidth={1.75} />
-                <span className="text-xs font-medium leading-tight text-foreground/70 group-data-[active=true]:text-foreground">{label}</span>
-              </button>
-            ))}
-          </div>
-          <p className="text-[0.7rem] leading-relaxed text-muted-foreground">เลือกหลักสูตรของคุณ — แอปจะแสดงเฉพาะหมวด/รายวิชาของสาขานี้</p>
-        </div>
-      )}
 
       <form onSubmit={emailAuth} className="mt-5 space-y-4">
         <div className="space-y-1.5">

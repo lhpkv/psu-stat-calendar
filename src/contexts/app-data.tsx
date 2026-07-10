@@ -7,7 +7,6 @@ import {
 } from '@/lib/data/repository'
 import type { TakenCourse, Profile, Override, Major } from '@/lib/types'
 import { buildProgram } from '@/lib/curriculum/program-2564'
-import { buildCompSciProgram } from '@/lib/curriculum/program-cs'
 import type { Program } from '@/lib/curriculum/types'
 import { computeProgress, type ProgressResult } from '@/lib/engine/progress'
 
@@ -98,11 +97,8 @@ export function AppDataProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   const program = useMemo(
-    () =>
-      profile.major === 'comp_sci'
-        ? buildCompSciProgram(profile.plan)
-        : buildProgram(profile.plan, profile.geFramework),
-    [profile.major, profile.plan, profile.geFramework],
+    () => buildProgram(profile.plan, profile.geFramework),
+    [profile.plan, profile.geFramework],
   )
 
   const progress = useMemo(

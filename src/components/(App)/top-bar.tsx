@@ -17,7 +17,7 @@ const TITLES: Record<string, string> = {
 }
 
 export function TopBar() {
-  const { profile, saveProfile, setMajor } = useAppData()
+  const { profile, saveProfile } = useAppData()
   const pathname = usePathname()
   const router = useRouter()
   const title = Object.entries(TITLES).find(([k]) => pathname.startsWith(k))?.[1] ?? ''
@@ -34,15 +34,7 @@ export function TopBar() {
         <h1 className="hidden text-lg font-semibold tracking-tight text-foreground md:block">{title}</h1>
 
         <div className="ml-auto flex items-center gap-2">
-          <Select value={profile.major} items={{ statistics: 'สถิติ', comp_sci: 'วิทยาการคอมพิวเตอร์' }}
-            onValueChange={(v) => v && v !== profile.major && setMajor(v as 'statistics' | 'comp_sci')}>
-            <SelectTrigger size="sm" className="w-28 rounded-xl sm:w-36"><SelectValue /></SelectTrigger>
-            <SelectContent>
-              <SelectItem value="statistics">สถิติ</SelectItem>
-              <SelectItem value="comp_sci">วิทยาการคอมพิวเตอร์</SelectItem>
-            </SelectContent>
-          </Select>
-          {/* แผนปกติ/สหกิจ — มีทั้งสถิติและวิทยาการคอมพิวเตอร์ */}
+          {/* แผนปกติ/สหกิจ */}
           <Select value={profile.plan} items={{ regular: 'แผนปกติ', coop: 'แผนสหกิจ' }}
             onValueChange={(v) => v && v !== profile.plan && saveProfile({ plan: v as 'regular' | 'coop' })}>
             <SelectTrigger size="sm" className="w-24 rounded-xl sm:w-28"><SelectValue /></SelectTrigger>
@@ -51,17 +43,15 @@ export function TopBar() {
               <SelectItem value="coop">แผนสหกิจ</SelectItem>
             </SelectContent>
           </Select>
-          {/* กรอบ GE — เฉพาะสถิติ (CS ใช้ GE2565 ตายตัว) */}
-          {profile.major === 'statistics' && (
-            <Select value={profile.geFramework} items={{ ge2565: 'GE 2565', core2564: 'สาระ 2564' }}
-              onValueChange={(v) => v && v !== profile.geFramework && saveProfile({ geFramework: v as 'ge2565' | 'core2564' })}>
-              <SelectTrigger size="sm" className="w-28 rounded-xl sm:w-32"><SelectValue /></SelectTrigger>
-              <SelectContent>
-                <SelectItem value="ge2565">GE 2565 · 132 นก</SelectItem>
-                <SelectItem value="core2564">สาระ 2564 · 138 นก</SelectItem>
-              </SelectContent>
-            </Select>
-          )}
+          {/* กรอบ GE */}
+          <Select value={profile.geFramework} items={{ ge2565: 'GE 2565', core2564: 'สาระ 2564' }}
+            onValueChange={(v) => v && v !== profile.geFramework && saveProfile({ geFramework: v as 'ge2565' | 'core2564' })}>
+            <SelectTrigger size="sm" className="w-28 rounded-xl sm:w-32"><SelectValue /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="ge2565">GE 2565 · 132 นก</SelectItem>
+              <SelectItem value="core2564">สาระ 2564 · 138 นก</SelectItem>
+            </SelectContent>
+          </Select>
           <button type="button" onClick={signOut} title="ออกจากระบบ" aria-label="ออกจากระบบ"
             className="grid size-8 shrink-0 place-items-center rounded-xl border border-border text-muted-foreground transition-colors hover:bg-accent hover:text-foreground md:hidden">
             <LogOut className="size-4" />

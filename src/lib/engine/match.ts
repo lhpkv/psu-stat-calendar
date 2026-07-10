@@ -3,7 +3,6 @@ import type { TakenCourse, Override } from '@/lib/types'
 import { isPass, bestAttempt } from './grades'
 import { normalizeCode } from './normalize'
 import { MAJOR_G1_CODES, MAJOR_G2_CODES } from '@/lib/curriculum/program-2564'
-import { CS_MAJOR_ELEC_CODES } from '@/lib/curriculum/program-cs'
 import { GE_BY_CODE } from '@/lib/curriculum/ge-catalog'
 import type { BucketKind } from '@/lib/curriculum/types'
 
@@ -22,7 +21,6 @@ function eligibleForBucket(elig: BucketKind, code: string): boolean {
   const c = normalizeCode(code)
   if (elig === 'major_elec_g1') return MAJOR_G1_CODES.has(c)
   if (elig === 'major_elec_g2') return MAJOR_G2_CODES.has(c)
-  if (elig === 'cs_major_elec') return CS_MAJOR_ELEC_CODES.has(c)
   if (elig === 'ge8') return GE_BY_CODE[c]?.group === 'GE8'
   if (elig === 'free') return true
   return false
@@ -80,7 +78,7 @@ export function assign(program: Program, taken: TakenCourse[], overrides: Overri
   }
 
   // 5) bucket ตามลำดับความจำกัด: g1 → g2 → ge8 → free
-  const order: BucketKind[] = ['major_elec_g1', 'major_elec_g2', 'cs_major_elec', 'ge8', 'free']
+  const order: BucketKind[] = ['major_elec_g1', 'major_elec_g2', 'ge8', 'free']
   for (const elig of order) {
     for (const req of program.requirements) {
       if (req.kind !== 'bucket' || req.eligible !== elig) continue

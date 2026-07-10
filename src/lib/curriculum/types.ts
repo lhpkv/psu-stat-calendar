@@ -10,7 +10,7 @@ export interface CourseInfo {
   credits: number
 }
 
-export type BucketKind = 'major_elec_g1' | 'major_elec_g2' | 'cs_major_elec' | 'ge8' | 'free'
+export type BucketKind = 'major_elec_g1' | 'major_elec_g2' | 'ge8' | 'free'
 
 interface ReqBase {
   id: string
