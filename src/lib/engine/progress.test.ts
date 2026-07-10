@@ -108,3 +108,31 @@ describe('suggestNextTerm', () => {
     for (const c of ['346-321', '346-322', '346-331', '346-361']) expect(codes).toContain(c)
   })
 })
+
+// regression: ตรงข้อมูลทางการ sccheckgraduate — วิชาเลือกสาขา g1 ต้องมี 322-211
+describe('regression sccheckgraduate: 322-211 นับเป็นวิชาเลือกสาขา g1', () => {
+  const prog = buildProgram('regular', 'ge2565')
+  it('322-211 อยู่ในเซต g1 และถูกนับเมื่อผ่าน', () => {
+    const taken: TakenCourse[] = [
+      { code: '322-211', name: 'หลักการคณิตศาสตร์', credits: 3, grade: 'B', term: '1/2568' },
+    ]
+    const r = computeProgress(prog, taken, [])
+    expect(cat(r, 'major_elective').doneCredits).toBe(3)
+  })
+  function cat(r: ReturnType<typeof computeProgress>, c: string) {
+    return r.categories.find((x) => x.category === c)!
+  }
+})
+
+// regression: สาระ 7 (core2564) options ต้องครบตามทางการ — เคยมีแค่ 9 จาก 33 รหัส
+describe('regression sccheckgraduate: สาระ 7 options ครบ (core2564)', () => {
+  const prog = buildProgram('regular', 'core2564')
+  const req = prog.requirements.find((r) => r.id === 'sara:7')!
+  const opts = req.kind === 'choose' ? new Set(req.options.map((o) => o.code)) : new Set<string>()
+  // ตัวอย่างรหัสที่เคยหายไป
+  for (const code of ['895-022', '895-025', '895-038', '142-135', '472-116', '315-102']) {
+    it(`${code} อยู่ใน sara:7 options`, () => {
+      expect(opts.has(code)).toBe(true)
+    })
+  }
+})
