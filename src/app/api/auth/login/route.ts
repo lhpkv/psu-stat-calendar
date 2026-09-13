@@ -3,8 +3,9 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient as createServerSupabase } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { fetchStructureHtml, PsuAuthError } from '@/lib/psu/client'
-import { parseStructure, detectMajor } from '@/lib/psu/parse-structure'
-import { persistSync } from '@/lib/psu/sync'
+import { parseStructure } from '@/lib/psu/parse-structure'
+import { persistParsed } from '@/lib/psu/sync'
+import { DEFAULT_PROFILE } from '@/lib/data/repository'
 
 // login ด้วยรหัส scmis: validate กับเว็บมหาลัย → ผูกบัญชี Supabase อัตโนมัติ → ซิงค์เกรดทันที
 export const runtime = 'nodejs'
@@ -18,16 +19,10 @@ function derivedPassword(studentId: string): string {
   return createHmac('sha256', secret).update(studentId).digest('base64')
 }
 
-// หา user id จากอีเมล (สำหรับเคสบัญชีมีอยู่แล้ว) — แอปนี้ผู้ใช้ไม่เยอะ paging แค่นี้พอ
-async function findUserIdByEmail(admin: SupabaseClient, email: string): Promise<string | null> {
-  for (let page = 1; page <= 10; page++) {
-    const { data, error } = await admin.auth.admin.listUsers({ page, perPage: 200 })
-    if (error || !data.users.length) return null
-    const found = data.users.find((u) => u.email?.toLowerCase() === email.toLowerCase())
-    if (found) return found.id
-    if (data.users.length < 200) return null
-  }
-  return null
+// หา user id จาก psu_credentials (สำหรับเคสบัญชีมีอยู่แล้ว) — บัญชีทุกอันที่ route นี้สร้างจะมีแถวนี้เสมอ
+async function findUserIdByUsername(admin: SupabaseClient, username: string): Promise<string | null> {
+  const { data } = await admin.from('psu_credentials').select('user_id').eq('username', username).maybeSingle()
+  return data?.user_id ?? null
 }
 
 export async function POST(req: Request) {
@@ -53,7 +48,8 @@ export async function POST(req: Request) {
     return Response.json({ error: 'เชื่อมต่อ scmis ไม่ได้ ลองใหม่อีกครั้ง' }, { status: 502 })
   }
 
-  const major = detectMajor(parseStructure(html))
+  // parse ครั้งเดียว ใช้ทั้งตอนสร้างบัญชี (major) และตอน persist
+  const parsed = parseStructure(html)
   const email = syntheticEmail(studentId)
   const pass = derivedPassword(studentId)
   const admin = createAdminClient()
@@ -67,11 +63,11 @@ export async function POST(req: Request) {
       email,
       password: pass,
       email_confirm: true,
-      user_metadata: { student_id: studentId, major },
+      user_metadata: { student_id: studentId, major: DEFAULT_PROFILE.major },
     })
     if (createErr) {
       // มีบัญชีอยู่แล้วแต่รหัสสังเคราะห์ไม่ตรง (เช่น PSU_ENC_KEY เปลี่ยน) → อัปเดตรหัสแล้วลองใหม่
-      const id = await findUserIdByEmail(admin, email)
+      const id = await findUserIdByUsername(admin, studentId)
       if (!id) {
         console.error('[auth/login] createUser failed:', createErr.message)
         return Response.json({ error: 'สร้างบัญชีไม่สำเร็จ', detail: createErr.message }, { status: 500 })
@@ -92,7 +88,7 @@ export async function POST(req: Request) {
   // 3) ซิงค์เกรด + structure ทันที (ใช้ html ที่ดึงมาแล้ว ไม่ login ซ้ำ)
   //    sync ล้มเหลวไม่ควรกันเข้าระบบ — ผู้ใช้กดซิงค์ใหม่ได้
   try {
-    await persistSync(admin, signIn.data.user.id, studentId, password, html)
+    await persistParsed(admin, signIn.data.user.id, studentId, password, parsed)
   } catch {
     /* เข้าระบบแล้ว, ซิงค์ภายหลังได้ */
   }

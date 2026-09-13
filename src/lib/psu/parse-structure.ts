@@ -1,4 +1,4 @@
-import type { Major } from '@/lib/types'
+import { normalizeCode } from '@/lib/engine/normalize'
 
 // แกะหน้า std_chkstruc.asp (ผลตรวจสอบหลักสูตรของ scmis) เป็นโครงสร้างที่ใช้งานต่อได้
 // pure function — เทสกับ fixture จริงใน parse-structure.test.ts
@@ -81,7 +81,7 @@ export function parseStructure(html: string): PsuStructure {
     }
     const { taken, grade } = parseStatus(m[4])
     courses.push({
-      code: m[1].toUpperCase(),
+      code: normalizeCode(m[1]),
       name: clean(m[2]),
       credits: Number(m[3]),
       grade,
@@ -91,11 +91,4 @@ export function parseStructure(html: string): PsuStructure {
   }
 
   return { summary, courses, categories: cats.map(({ title, requiredCredits }) => ({ title, requiredCredits })) }
-}
-
-// แมปสาขาจากวุฒิ (best-effort) — ผู้ใช้เปลี่ยนได้ในแอป
-// ตอนนี้แอปรองรับเฉพาะสถิติ (หลักสูตร CS ถูกถอดออกใน ac0a6d7)
-// พอคืน CS: กลับมาเช็ค /คอมพิวเตอร์/.test(s.summary.degree) → 'comp_sci'
-export function detectMajor(_s: PsuStructure): Major {
-  return 'statistics'
 }

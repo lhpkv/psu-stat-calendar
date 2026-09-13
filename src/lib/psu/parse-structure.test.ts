@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { readFileSync } from 'node:fs'
-import { parseStructure, detectMajor } from './parse-structure'
+import { parseStructure } from './parse-structure'
 
 const html = readFileSync('src/lib/psu/__fixtures__/structure.html', 'utf8')
 
@@ -44,11 +44,5 @@ describe('parseStructure', () => {
 
   it('นับจำนวนวิชาทั้งหมดถูก (ไม่หลุด ไม่ซ้ำ)', () => {
     expect(s.courses).toHaveLength(6)
-  })
-})
-
-describe('detectMajor', () => {
-  it('คืนค่า statistics (แอปรองรับเฉพาะสถิติ)', () => {
-    expect(detectMajor(parseStructure(html))).toBe('statistics')
   })
 })

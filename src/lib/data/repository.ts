@@ -145,12 +145,12 @@ export async function getPsuStructure(): Promise<StoredStructure | null> {
   return (data?.structure as StoredStructure | undefined) ?? null
 }
 
-/** ซิงค์ใหม่ด้วยรหัสที่บันทึกไว้ — คืนจำนวนวิชาที่ดึงมา */
-export async function syncPsu(): Promise<number> {
+/** ซิงค์ใหม่ด้วยรหัสที่บันทึกไว้ — คืนจำนวนวิชาที่ดึงมา + snapshot ผลตรวจ (จาก response โดยตรง) */
+export async function syncPsu(): Promise<{ importedCount: number; structure: StoredStructure }> {
   const res = await fetch('/api/psu/sync', { method: 'POST' })
   const data = await res.json().catch(() => ({}))
   if (!res.ok) throw new Error(data.error ?? 'ซิงค์ไม่สำเร็จ')
-  return (data.importedCount as number) ?? 0
+  return { importedCount: (data.importedCount as number) ?? 0, structure: data.structure }
 }
 
 export async function listOverrides(): Promise<Override[]> {

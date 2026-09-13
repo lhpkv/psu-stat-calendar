@@ -91,12 +91,13 @@ export function AppDataProvider({ children }: { children: React.ReactNode }) {
     await loadAll()
   }, [loadAll])
 
-  // ซิงค์ใหม่จาก scmis แล้วรีโหลดข้อมูลทั้งหมด (เกรด + structure)
+  // ซิงค์ใหม่จาก scmis — ใช้ structure จาก response ตรง ๆ + รีโหลดเฉพาะเกรด (โดยอื่นไม่เปลี่ยน)
   const syncPsu = useCallback(async () => {
-    const n = await syncPsuRepo()
-    await loadAll()
-    return n
-  }, [loadAll])
+    const { importedCount, structure } = await syncPsuRepo()
+    setPsuStructure(structure)
+    setTaken(await listTaken())
+    return importedCount
+  }, [])
 
   const saveProfile = useCallback(async (patch: Partial<Profile>) => {
     setProfile((prev) => ({ ...prev, ...patch }))
