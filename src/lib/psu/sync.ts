@@ -1,6 +1,6 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { fetchStructureHtml } from './client'
-import { parseStructure, type StoredStructure } from './parse-structure'
+import { parseStructure, type PsuStructure, type StoredStructure } from './parse-structure'
 import { encrypt } from './crypto'
 
 // logic ซิงค์ที่ใช้ร่วมกัน: login route (sync ตอนเข้าระบบ) + ปุ่มซิงค์ใหม่
@@ -28,7 +28,17 @@ export async function persistSync(
   password: string,
   html: string,
 ): Promise<SyncResult> {
-  const parsed = parseStructure(html)
+  return persistParsed(admin, userId, username, password, parseStructure(html))
+}
+
+export async function persistParsed(
+  admin: SupabaseClient,
+  userId: string,
+  username: string,
+  password: string,
+  parsed: PsuStructure,
+): Promise<SyncResult> {
+  const structure: StoredStructure = { ...parsed, syncedAt: new Date().toISOString() }
   const structure: StoredStructure = { ...parsed, syncedAt: new Date().toISOString() }
 
   // วิชาที่ลงแล้ว (มีเกรด) → taken_courses; term ว่าง (หน้านี้ไม่ให้เทอมต่อวิชา)
