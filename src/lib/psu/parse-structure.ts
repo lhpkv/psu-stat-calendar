@@ -23,11 +23,6 @@ export interface PsuStructure {
   categories: PsuCategory[]
 }
 
-// structure ที่เก็บใน DB (เพิ่มเวลา sync) — type นี้ browser-safe (ใช้ในหน้า dashboard ได้)
-export interface StoredStructure extends PsuStructure {
-  syncedAt: string
-}
-
 // เกรดที่ scmis แสดง (รวมกลุ่มถอน W/WC/WD/WF/WP)
 const GRADE_RE = /^(A|B\+|B|C\+|C|D\+|D|E|F|P|S|U|G|R|I|W[CDFP]?)$/
 

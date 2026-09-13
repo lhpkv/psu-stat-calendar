@@ -1,6 +1,5 @@
 import { createClient } from '@/lib/supabase/client'
 import type { TakenCourse, Profile, Override, Major } from '@/lib/types'
-import type { StoredStructure } from '@/lib/psu/parse-structure'
 
 const DEFAULT_PROFILE: Profile = {
   major: 'statistics',
@@ -132,25 +131,6 @@ export async function deleteTaken(id: string): Promise<void> {
   const supabase = createClient()
   const { error } = await supabase.from('taken_courses').delete().eq('id', id)
   if (error) throw error
-}
-
-// ── PSU live sync ──
-
-/** อ่าน snapshot ผลตรวจสอบหลักสูตรจาก scmis (เก็บใน psu_credentials.structure ของผู้ใช้เอง) */
-export async function getPsuStructure(): Promise<StoredStructure | null> {
-  const supabase = createClient()
-  // ตารางอาจยังไม่ถูก migrate หรือยังไม่มีแถว → ไม่ต้อง throw, แค่ไม่มีการ์ด
-  const { data, error } = await supabase.from('psu_credentials').select('structure').maybeSingle()
-  if (error) return null
-  return (data?.structure as StoredStructure | undefined) ?? null
-}
-
-/** ซิงค์ใหม่ด้วยรหัสที่บันทึกไว้ — คืนจำนวนวิชาที่ดึงมา + snapshot ผลตรวจ (จาก response โดยตรง) */
-export async function syncPsu(): Promise<{ importedCount: number; structure: StoredStructure }> {
-  const res = await fetch('/api/psu/sync', { method: 'POST' })
-  const data = await res.json().catch(() => ({}))
-  if (!res.ok) throw new Error(data.error ?? 'ซิงค์ไม่สำเร็จ')
-  return { importedCount: (data.importedCount as number) ?? 0, structure: data.structure }
 }
 
 export async function listOverrides(): Promise<Override[]> {
