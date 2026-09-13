@@ -1,45 +1,20 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { createClient, hasSupabaseEnv } from '@/lib/supabase/client'
+import { hasSupabaseEnv } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { cn } from '@/lib/utils'
 import { toast } from 'sonner'
-import { GraduationCap, Mail, Lock, Eye, EyeOff, Loader2, ShieldAlert } from 'lucide-react'
+import { GraduationCap, User, Lock, Eye, EyeOff, Loader2, ShieldAlert, ShieldCheck } from 'lucide-react'
 import { AuthShell } from '@/components/(Auth)/AuthShell'
 
-const STRENGTH = [
-  null,
-  { label: 'อ่อนมาก', bar: 'bg-red-500', text: 'text-red-600' },
-  { label: 'อ่อน', bar: 'bg-orange-500', text: 'text-orange-600' },
-  { label: 'แข็งแรง', bar: 'bg-green-500', text: 'text-green-600' },
-  { label: 'แข็งแรงมาก', bar: 'bg-emerald-600', text: 'text-emerald-700' },
-] as const
-
-/** คะแนนความแข็งแรงรหัสผ่าน 1–4 (0 = ว่าง) — อิงความยาว + ความหลากหลายของตัวอักษร */
-function pwScore(pw: string): number {
-  if (!pw) return 0
-  let s = 0
-  if (pw.length >= 6) s++
-  if (pw.length >= 10) s++
-  const kinds = [/[a-z]/, /[A-Z]/, /\d/, /[^A-Za-z0-9]/].filter((r) => r.test(pw)).length
-  if (kinds >= 2) s++
-  if (kinds >= 3) s++
-  return Math.min(4, Math.max(1, s))
-}
-
 export default function LoginPage() {
-  const router = useRouter()
   const envOk = hasSupabaseEnv()
-  const [mode, setMode] = useState<'signin' | 'signup'>('signin')
-  const [email, setEmail] = useState('')
+  const [studentId, setStudentId] = useState('')
   const [password, setPassword] = useState('')
   const [showPw, setShowPw] = useState(false)
   const [loading, setLoading] = useState(false)
-  const score = pwScore(password)
 
   if (!envOk) {
     return (
@@ -56,52 +31,29 @@ export default function LoginPage() {
         <div className="mt-6 space-y-3 text-sm">
           <p>
             ทำตามขั้นตอนในไฟล์{' '}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">SETUP.md</code>:
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">SETUP.md</code> แล้วใส่ค่า
+            URL / anon key ใน <code className="font-mono text-xs">.env.local</code>
           </p>
-          <ol className="space-y-2.5">
-            <li className="flex gap-2.5 text-muted-foreground">
-              <span className="grid size-5 shrink-0 place-items-center rounded-full bg-secondary text-[0.7rem] font-semibold text-secondary-foreground">1</span>
-              <span className="pt-px leading-relaxed">สร้างโปรเจกต์ที่ supabase.com</span>
-            </li>
-            <li className="flex gap-2.5 text-muted-foreground">
-              <span className="grid size-5 shrink-0 place-items-center rounded-full bg-secondary text-[0.7rem] font-semibold text-secondary-foreground">2</span>
-              <span className="pt-px leading-relaxed">
-                รัน <code className="font-mono text-xs">supabase/migrations/0001_init.sql</code>
-              </span>
-            </li>
-            <li className="flex gap-2.5 text-muted-foreground">
-              <span className="grid size-5 shrink-0 place-items-center rounded-full bg-secondary text-[0.7rem] font-semibold text-secondary-foreground">3</span>
-              <span className="pt-px leading-relaxed">
-                ใส่ค่า URL / anon key ใน <code className="font-mono text-xs">.env.local</code> แล้วรีสตาร์ท
-              </span>
-            </li>
-          </ol>
         </div>
       </AuthShell>
     )
   }
 
-  async function emailAuth(e: React.FormEvent) {
+  async function login(e: React.FormEvent) {
     e.preventDefault()
     setLoading(true)
-    const supabase = createClient()
     try {
-      if (mode === 'signin') {
-        const { error } = await supabase.auth.signInWithPassword({ email, password })
-        if (error) throw error
-        router.push('/dashboard')
-      } else {
-        const { error } = await supabase.auth.signUp({
-          email,
-          password,
-        })
-        if (error) throw error
-        toast.success('สมัครสำเร็จ! ถ้าระบบให้ยืนยันอีเมล โปรดเช็คกล่องจดหมาย')
-        router.push('/dashboard')
-      }
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ studentId: studentId.trim(), password }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error([data.error, data.detail].filter(Boolean).join(' — ') || 'เข้าสู่ระบบไม่สำเร็จ')
+      // โหลดเต็มหน้าเพื่อให้ client อ่าน session cookie ที่ server เพิ่งตั้ง
+      window.location.href = '/dashboard'
     } catch (err) {
       toast.error(err instanceof Error ? err.message : 'เกิดข้อผิดพลาด')
-    } finally {
       setLoading(false)
     }
   }
@@ -113,62 +65,41 @@ export default function LoginPage() {
           <GraduationCap className="size-7" strokeWidth={1.75} />
         </div>
         <h1 className="mt-4 text-xl font-semibold tracking-tight">PSU Credit Checker</h1>
-        <p className="mt-1 text-sm text-muted-foreground">เช็คหน่วยกิตหลักสูตร ม.อ.</p>
+        <p className="mt-1 text-sm text-muted-foreground">เข้าสู่ระบบด้วยรหัส scmis คณะวิทยาศาสตร์</p>
       </div>
 
-      <div className="relative mt-6 flex rounded-xl bg-muted/70 p-1">
-        <span
-          aria-hidden
-          className={cn(
-            'absolute inset-y-1 left-1 w-[calc(50%-0.25rem)] rounded-lg bg-card shadow-sm transition-transform duration-300 ease-out',
-            mode === 'signup' && 'translate-x-full'
-          )}
-        />
-        {(['signin', 'signup'] as const).map((m) => (
-          <button
-            key={m}
-            type="button"
-            onClick={() => setMode(m)}
-            data-active={mode === m}
-            className="relative z-10 h-9 flex-1 rounded-lg text-sm font-medium text-foreground/60 transition-colors duration-200 hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none data-[active=true]:text-foreground"
-          >
-            {m === 'signin' ? 'เข้าสู่ระบบ' : 'สมัครสมาชิก'}
-          </button>
-        ))}
-      </div>
-
-      <form onSubmit={emailAuth} className="mt-5 space-y-4">
+      <form onSubmit={login} className="mt-7 space-y-4">
         <div className="space-y-1.5">
-          <Label htmlFor="email">อีเมล</Label>
+          <Label htmlFor="studentId">รหัสนักศึกษา</Label>
           <div className="relative">
-            <Mail className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+            <User className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
             <Input
-              id="email"
-              name="email"
-              type="email"
-              autoComplete="email"
-              placeholder="you@psu.ac.th"
-              value={email}
+              id="studentId"
+              name="username"
+              type="text"
+              inputMode="numeric"
+              autoComplete="username"
+              placeholder="เช่น 6710210764"
+              value={studentId}
               required
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setStudentId(e.target.value)}
               className="h-11 rounded-xl pl-9"
             />
           </div>
         </div>
 
         <div className="space-y-1.5">
-          <Label htmlFor="password">รหัสผ่าน</Label>
+          <Label htmlFor="password">รหัสผ่าน scmis</Label>
           <div className="relative">
             <Lock className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               id="password"
               name="password"
               type={showPw ? 'text' : 'password'}
-              autoComplete={mode === 'signin' ? 'current-password' : 'new-password'}
-              placeholder="อย่างน้อย 6 ตัวอักษร"
+              autoComplete="current-password"
+              placeholder="รหัสผ่านระบบ scmis"
               value={password}
               required
-              minLength={6}
               onChange={(e) => setPassword(e.target.value)}
               className="h-11 rounded-xl pr-10 pl-9"
             />
@@ -181,57 +112,27 @@ export default function LoginPage() {
               {showPw ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
             </button>
           </div>
-          {mode === 'signup' && password.length > 0 && (
-            <div className="space-y-1.5 pt-1" aria-live="polite">
-              <div className="flex gap-1.5">
-                {[1, 2, 3, 4].map((i) => (
-                  <span
-                    key={i}
-                    className={cn(
-                      'h-1.5 flex-1 rounded-full transition-colors duration-300',
-                      i <= score ? STRENGTH[score]!.bar : 'bg-border'
-                    )}
-                  />
-                ))}
-              </div>
-              <p className={cn('text-xs font-medium', STRENGTH[score]!.text)}>
-                ความปลอดภัย: {STRENGTH[score]!.label}
-              </p>
-            </div>
-          )}
         </div>
 
-        <Button
-          type="submit"
-          disabled={loading}
-          className="h-11 w-full gap-2 rounded-xl text-[0.9rem] font-semibold"
-        >
+        <Button type="submit" disabled={loading} className="h-11 w-full gap-2 rounded-xl text-[0.9rem] font-semibold">
           {loading ? (
             <>
               <Loader2 className="size-4 animate-spin" />
-              กำลังดำเนินการ…
+              กำลังเข้าสู่ระบบ &amp; ดึงข้อมูล…
             </>
           ) : (
-            <span key={mode} className="animate-in fade-in duration-300">
-              {mode === 'signin' ? 'เข้าสู่ระบบ' : 'สมัครสมาชิก'}
-            </span>
+            'เข้าสู่ระบบ'
           )}
         </Button>
       </form>
 
-      <p
-        key={mode}
-        className="mt-5 text-center text-xs leading-relaxed text-muted-foreground animate-in fade-in duration-300"
-      >
-        {mode === 'signin' ? 'ยังไม่มีบัญชี? ' : 'มีบัญชีอยู่แล้ว? '}
-        <button
-          type="button"
-          onClick={() => setMode(mode === 'signin' ? 'signup' : 'signin')}
-          className="font-medium text-foreground underline-offset-4 hover:underline"
-        >
-          {mode === 'signin' ? 'สมัครสมาชิกใหม่' : 'เข้าสู่ระบบ'}
-        </button>
-      </p>
+      <div className="mt-5 flex items-start gap-2 rounded-xl bg-muted/60 px-3.5 py-3 text-[0.7rem] leading-relaxed text-muted-foreground">
+        <ShieldCheck className="mt-px size-3.5 shrink-0 text-emerald-600" />
+        <span>
+          ใช้รหัสเดียวกับระบบ scmis ของมหาวิทยาลัย — ระบบจะดึงเกรดและผลตรวจสอบหลักสูตรจริงมาให้
+          รหัสผ่านถูกเข้ารหัสเก็บไว้ฝั่งเซิร์ฟเวอร์เท่านั้น
+        </span>
+      </div>
     </AuthShell>
   )
 }

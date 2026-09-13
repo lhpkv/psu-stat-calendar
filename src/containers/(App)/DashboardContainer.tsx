@@ -6,6 +6,7 @@ import { CATEGORY_LABEL, suggestNextTerm } from '@/lib/engine/progress'
 import type { Category } from '@/lib/curriculum/types'
 import { MAJOR_LABEL } from '@/lib/types'
 import { StatusBadge, statusBarClass } from '@/components/common/status'
+import { PsuVerdict } from '@/components/(App)/psu-verdict'
 import { Card, CardContent } from '@/components/ui/card'
 import {
   FlaskConical, BookOpenCheck, Sigma, Languages, Sparkles, AlertTriangle, ArrowRight,
@@ -87,6 +88,9 @@ export default function DashboardPage() {
           </ul>
         </div>
       )}
+
+      {/* ── ผลตรวจสอบหลักสูตรจาก scmis (ตามระบบมหาลัย) ── */}
+      <PsuVerdict />
 
       {/* ── category cards ── */}
       <div>

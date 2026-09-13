@@ -4,8 +4,10 @@ import { createContext, useContext, useEffect, useMemo, useState, useCallback } 
 import { createClient, hasSupabaseEnv } from '@/lib/supabase/client'
 import {
   getProfile, listTaken, listOverrides, upsertProfile, setMajor as setMajorRepo,
+  getPsuStructure, syncPsu as syncPsuRepo,
 } from '@/lib/data/repository'
 import type { TakenCourse, Profile, Override, Major } from '@/lib/types'
+import type { StoredStructure } from '@/lib/psu/parse-structure'
 import { buildProgram } from '@/lib/curriculum/program-2564'
 import type { Program } from '@/lib/curriculum/types'
 import { computeProgress, type ProgressResult } from '@/lib/engine/progress'
@@ -19,7 +21,9 @@ interface AppDataValue {
   overrides: Override[]
   program: Program
   progress: ProgressResult
+  psuStructure: StoredStructure | null
   refresh: () => Promise<void>
+  syncPsu: () => Promise<number>
   saveProfile: (patch: Partial<Profile>) => Promise<void>
   setMajor: (major: Major) => Promise<void>
 }
@@ -35,12 +39,14 @@ export function AppDataProvider({ children }: { children: React.ReactNode }) {
   const [profile, setProfile] = useState<Profile>(DEFAULT_PROFILE)
   const [taken, setTaken] = useState<TakenCourse[]>([])
   const [overrides, setOverrides] = useState<Override[]>([])
+  const [psuStructure, setPsuStructure] = useState<StoredStructure | null>(null)
 
   const loadAll = useCallback(async () => {
-    const [p, t, o] = await Promise.all([getProfile(), listTaken(), listOverrides()])
+    const [p, t, o, s] = await Promise.all([getProfile(), listTaken(), listOverrides(), getPsuStructure()])
     setProfile(p)
     setTaken(t)
     setOverrides(o)
+    setPsuStructure(s)
   }, [])
 
   useEffect(() => {
@@ -85,6 +91,13 @@ export function AppDataProvider({ children }: { children: React.ReactNode }) {
     await loadAll()
   }, [loadAll])
 
+  // ซิงค์ใหม่จาก scmis แล้วรีโหลดข้อมูลทั้งหมด (เกรด + structure)
+  const syncPsu = useCallback(async () => {
+    const n = await syncPsuRepo()
+    await loadAll()
+    return n
+  }, [loadAll])
+
   const saveProfile = useCallback(async (patch: Partial<Profile>) => {
     setProfile((prev) => ({ ...prev, ...patch }))
     await upsertProfile(patch)
@@ -107,7 +120,8 @@ export function AppDataProvider({ children }: { children: React.ReactNode }) {
   )
 
   const value: AppDataValue = {
-    envOk, loading, email, profile, taken, overrides, program, progress, refresh, saveProfile, setMajor,
+    envOk, loading, email, profile, taken, overrides, program, progress, psuStructure,
+    refresh, syncPsu, saveProfile, setMajor,
   }
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>
 }
