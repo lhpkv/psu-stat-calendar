@@ -3,7 +3,8 @@ import path from "node:path";
 
 const nextConfig: NextConfig = {
   // standalone: ออก server แบบ minimal (.next/standalone/server.js) → Docker image เล็ก ไม่ต้องลง node_modules ทั้งก้อน
-  output: "standalone",
+  // เฉพาะ Docker/Railway — บน Vercel ปิดไว้ เพราะ adapter ของ Vercel สร้าง output ของตัวเองจาก build ปกติ (standalone กลายเป็นของเกิน)
+  ...(process.env.VERCEL ? {} : { output: "standalone" as const }),
   reactCompiler: true,
   // ระบุ root ให้ชัด (มี yarn.lock ใน home dir ทำให้ Next เดา root ผิด)
   turbopack: {

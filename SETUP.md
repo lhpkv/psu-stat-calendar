@@ -59,7 +59,13 @@ npm run dev
 
 ## 6) Deploy (Vercel)
 1. push ขึ้น GitHub → import ใน https://vercel.com
-2. ใส่ env `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+2. ใส่ env ทั้ง 4 ตัว (ดู `.env.example`): `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`,
+   `SUPABASE_SERVICE_ROLE_KEY`, `PSU_ENC_KEY`
+   ⚠️ ต้องใส่**ก่อนกด Deploy ครั้งแรก** และต้องเป็นค่าของ Supabase **คลาวด์** (ไม่ใช่ 127.0.0.1) —
+   ถ้าไม่ใส่ build ผ่านปกติ แต่หน้าเว็บจะขึ้น UI "ยังไม่ได้ตั้งค่า Supabase" และระบบล็อกอินหายไปเงียบ ๆ (proxy ปล่อยผ่านทุกหน้า)
+   (แก้ทีหลังได้: ใส่ env แล้ว Redeploy)
+   - `PSU_ENC_KEY` = hex 64 ตัว สร้างด้วย `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`
+   - รัน migration `supabase/migrations/0002_psu_credentials.sql` + `0003_psu_structure.sql` บน Supabase คลาวด์ด้วย (SQL Editor)
 3. Deploy — ใช้ Supabase ตัวเดียวกัน ข้อมูลซิงค์ข้ามเครื่องอัตโนมัติ
 
 ## ทดสอบเอนจิน

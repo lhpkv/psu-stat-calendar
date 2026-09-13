@@ -3,6 +3,8 @@ import { reconstructLines } from '@/lib/engine/pdf-extract'
 
 // แกะข้อความ PDF ฝั่ง server — ไม่มี pdf.js/worker ฝั่ง browser → ทำงานได้ทุกอุปกรณ์ (iOS/Android/desktop)
 export const runtime = 'nodejs'
+// ให้เวลาแกะข้อความทีละหน้าจนจบ (Vercel default สั้นกว่านี้ — PDF ทรานสคริปต์หน้าเยอะอาจไม่ทัน)
+export const maxDuration = 60
 
 export async function POST(req: Request) {
   try {
