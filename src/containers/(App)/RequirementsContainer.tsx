@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useAppData } from '@/hooks/use-app-data'
 import { StatusBadge } from '@/components/common/status'
 import { CATEGORY_LABEL } from '@/lib/engine/progress'
+import { isPass } from '@/lib/engine/grades'
 import type { Category } from '@/lib/curriculum/types'
 import { setOverride, clearOverride } from '@/lib/data/repository'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -105,7 +106,8 @@ export default function RequirementCategoryPage() {
                       <SelectValue placeholder="เลือกวิชา…" />
                     </SelectTrigger>
                     <SelectContent>
-                      {taken.map((t) => (
+                      {/* เฉพาะวิชาที่ผ่าน — assign() ใช้เฉพาะ best passing attempt การปักหมุดวิชาที่ตกจะไม่มีผล */}
+                      {taken.filter((t) => isPass(t.grade)).map((t) => (
                         <SelectItem key={`${t.code}-${t.term}`} value={`${t.code}|${t.term}`}>
                           {t.code} · {t.term} ({t.grade})
                         </SelectItem>

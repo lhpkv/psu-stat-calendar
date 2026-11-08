@@ -4,6 +4,9 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useAppData } from '@/hooks/use-app-data'
 import { createClient } from '@/lib/supabase/client'
+import { signOutOrThrow } from '@/lib/auth/sign-out'
+import { describeDbError } from '@/lib/ui/errors'
+import { toast } from 'sonner'
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select'
@@ -23,8 +26,17 @@ export function TopBar() {
   const title = Object.entries(TITLES).find(([k]) => pathname.startsWith(k))?.[1] ?? ''
 
   async function signOut() {
-    await createClient().auth.signOut()
-    router.replace('/login')
+    try {
+      await signOutOrThrow(createClient().auth)
+      router.replace('/login')
+    } catch {
+      toast.error('ออกจากระบบไม่สำเร็จ ลองใหม่อีกครั้ง')
+    }
+  }
+
+  // controlled Select ต้องอัปเดตทันที (optimistic) และต้องไม่ทิ้ง rejection ลอย ๆ
+  const save = (patch: Parameters<typeof saveProfile>[0]) => {
+    void saveProfile(patch).catch((e) => toast.error(describeDbError(e)))
   }
 
   return (
@@ -36,7 +48,7 @@ export function TopBar() {
         <div className="ml-auto flex items-center gap-2">
           {/* แผนปกติ/สหกิจ */}
           <Select value={profile.plan} items={{ regular: 'แผนปกติ', coop: 'แผนสหกิจ' }}
-            onValueChange={(v) => v && v !== profile.plan && saveProfile({ plan: v as 'regular' | 'coop' })}>
+            onValueChange={(v) => v && v !== profile.plan && save({ plan: v as 'regular' | 'coop' })}>
             <SelectTrigger size="sm" className="w-24 rounded-xl sm:w-28"><SelectValue /></SelectTrigger>
             <SelectContent>
               <SelectItem value="regular">แผนปกติ</SelectItem>
@@ -45,7 +57,7 @@ export function TopBar() {
           </Select>
           {/* กรอบ GE */}
           <Select value={profile.geFramework} items={{ ge2565: 'GE 2565', core2564: 'สาระ 2564' }}
-            onValueChange={(v) => v && v !== profile.geFramework && saveProfile({ geFramework: v as 'ge2565' | 'core2564' })}>
+            onValueChange={(v) => v && v !== profile.geFramework && save({ geFramework: v as 'ge2565' | 'core2564' })}>
             <SelectTrigger size="sm" className="w-28 rounded-xl sm:w-32"><SelectValue /></SelectTrigger>
             <SelectContent>
               <SelectItem value="ge2565">GE 2565 · 132 นก</SelectItem>

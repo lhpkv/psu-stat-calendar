@@ -6,7 +6,7 @@ import { CATEGORY_LABEL, suggestNextTerm } from '@/lib/engine/progress'
 import type { Category } from '@/lib/curriculum/types'
 import { MAJOR_LABEL } from '@/lib/types'
 import { StatusBadge, statusBarClass } from '@/components/common/status'
-import { PsuCheck } from '@/components/(App)/psu-check-dialog'
+import { PsuVerdict } from '@/components/(App)/psu-verdict'
 import { Card, CardContent } from '@/components/ui/card'
 import {
   FlaskConical, BookOpenCheck, Sigma, Languages, Sparkles, AlertTriangle, ArrowRight,
@@ -22,12 +22,12 @@ const CAT_ICON: Record<Category, typeof FlaskConical> = {
 }
 
 export default function DashboardPage() {
-  const { progress, program, profile, taken, email } = useAppData()
+  const { progress, program, profile, taken, email, overrides } = useAppData()
   const pct = progress.totalNeed ? Math.round((progress.totalDone / progress.totalNeed) * 100) : 0
   const remaining = Math.max(progress.totalNeed - progress.totalDone, 0)
   const verifyFlags = progress.requirements.filter((r) => r.verifyNote && r.status !== 'done')
   const at = { year: profile.currentYear ?? 3, term: profile.currentTerm ?? 1 }
-  const next = suggestNextTerm(program, taken, [], at)
+  const next = suggestNextTerm(program, taken, overrides, at)
   const name = email ? email.split('@')[0] : 'นักศึกษา'
 
   const R = 52
@@ -89,8 +89,8 @@ export default function DashboardPage() {
         </div>
       )}
 
-      {/* ── ตรวจกับ scmis (manual — ไม่เก็บรหัส, ดึงผลตรวจจริงจากมหาลัย) ── */}
-      <PsuCheck />
+      {/* ── ผลตรวจสอบหลักสูตร (คำนวณจากข้อมูลที่นำเข้า — ไม่เรียก API มหาวิทยาลัย) ── */}
+      <PsuVerdict />
 
       {/* ── category cards ── */}
       <div>

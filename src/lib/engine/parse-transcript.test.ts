@@ -167,3 +167,13 @@ describe('parseSisTranscript — transcript จริง "Study Result" ภา�
     expect(rows.some((r) => r.name === '' || /summary|credits/i.test(r.name))).toBe(false)
   })
 })
+
+describe('เกรดโอน Y/Q', () => {
+  it('แยกบรรทัดวิชาที่ได้เกรด Y หรือ Q ได้', () => {
+    const text = `145-101 COMPANION ANIMALS 3 Y
+890-102G1 EVERYDAY ENGLISH 2 Q`
+    const rows = parseTranscript(text, '1/2567')
+    expect(rows.find((r) => r.code === '145-101')).toMatchObject({ grade: 'Y', credits: 3 })
+    expect(rows.find((r) => r.code === '890-102G1')).toMatchObject({ grade: 'Q', credits: 2 })
+  })
+})

@@ -37,5 +37,7 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)'],
+  // ไม่รวม /api — route handler ตรวจ auth เอง และ Next 16 จะ buffer/ตัด body ของ proxy ที่ 10MB
+  // (ถ้าให้ proxy วิ่งบน /api/parse-pdf ไฟล์ PDF ใหญ่จะถูกตัดเหลือ 10MB ก่อนถึง handler)
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)'],
 }

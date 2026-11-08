@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useEffect, useMemo, useState, useCallback } from 'react'
+import { createContext, useContext, useEffect, useMemo, useState, useCallback, useRef } from 'react'
 import { createClient, hasSupabaseEnv } from '@/lib/supabase/client'
 import {
   getProfile, listTaken, listOverrides, upsertProfile, setMajor as setMajorRepo,
@@ -13,6 +13,7 @@ import { computeProgress, type ProgressResult } from '@/lib/engine/progress'
 interface AppDataValue {
   envOk: boolean
   loading: boolean
+  error: string | null
   email: string | null
   profile: Profile
   taken: TakenCourse[]
@@ -30,7 +31,9 @@ const Ctx = createContext<AppDataValue | null>(null)
 
 export function AppDataProvider({ children }: { children: React.ReactNode }) {
   const envOk = hasSupabaseEnv()
-  const [loading, setLoading] = useState(true)
+  // ถ้าไม่มี env ก็ไม่มีอะไรให้โหลด — เริ่มต้นเป็น false เลย ไม่ต้อง setState ใน effect
+  const [loading, setLoading] = useState(envOk)
+  const [error, setError] = useState<string | null>(null)
   const [email, setEmail] = useState<string | null>(null)
   const [profile, setProfile] = useState<Profile>(DEFAULT_PROFILE)
   const [taken, setTaken] = useState<TakenCourse[]>([])
@@ -44,24 +47,33 @@ export function AppDataProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   useEffect(() => {
-    if (!envOk) {
-      setLoading(false)
-      return
-    }
+    if (!envOk) return
     let active = true
     let loadedFor: string | null = null
+    let inFlightFor: string | null = null
     const supabase = createClient()
 
-    // โหลดข้อมูลเมื่อมี session (กันโหลดซ้ำด้วย loadedFor)
+    // โหลดข้อมูลเมื่อมี session (กันโหลดซ้ำด้วย loadedFor/inFlightFor)
+    // หมายเหตุ: supabase ยิง INITIAL_SESSION ให้ subscriber พร้อมกับ getSession() ที่ resolve
+    // → onSession อาจถูกเรียก 2 ครั้ง; ครั้งที่สองต้องไม่เคลียร์ loading ก่อน loadAll รอบแรกจบ
     async function onSession(userId: string | undefined, email: string | null) {
-      if (!active || !userId || loadedFor === userId) {
+      if (!active || !userId) {
         if (active) setLoading(false)
         return
       }
-      loadedFor = userId
+      if (loadedFor === userId || inFlightFor === userId) return
+      inFlightFor = userId
       setEmail(email)
-      await loadAll()
-      if (active) setLoading(false)
+      try {
+        await loadAll()
+        loadedFor = userId
+        if (active) setError(null)
+      } catch (e) {
+        if (active) setError(e instanceof Error ? e.message : 'โหลดข้อมูลไม่สำเร็จ')
+      } finally {
+        inFlightFor = null
+        if (active) setLoading(false)
+      }
     }
 
     // เช็คครั้งแรก — ไม่ redirect เอง (proxy เป็นตัวกั้น auth อยู่แล้ว)
@@ -82,18 +94,43 @@ export function AppDataProvider({ children }: { children: React.ReactNode }) {
   }, [envOk, loadAll])
 
   const refresh = useCallback(async () => {
-    await loadAll()
+    try {
+      await loadAll()
+      setError(null)
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'โหลดข้อมูลไม่สำเร็จ')
+      throw e
+    }
   }, [loadAll])
 
+  // เขียนฐานข้อมูลแบบ optimistic แต่ถ้าล้มเหลวต้อง rollback กลับค่าเดิม (ไม่ปล่อยให้ UI โชว์ค่าที่ไม่ได้บันทึก)
+  // หมายเหตุ: Select ใน top-bar/plan เป็น controlled — ถ้าไม่ setState ทันที ค่าจะไม่ขยับระหว่างรอ network
+  const profileRef = useRef(profile)
+  useEffect(() => {
+    profileRef.current = profile
+  }, [profile])
+
   const saveProfile = useCallback(async (patch: Partial<Profile>) => {
-    setProfile((prev) => ({ ...prev, ...patch }))
-    await upsertProfile(patch)
+    const prev = profileRef.current
+    setProfile((p) => ({ ...p, ...patch }))
+    try {
+      await upsertProfile(patch)
+    } catch (e) {
+      setProfile(prev)
+      throw e
+    }
   }, [])
 
   // major เก็บใน auth metadata (คนละที่กับ profiles) → ใช้ setMajor แยกต่างหาก
   const setMajor = useCallback(async (major: Major) => {
-    setProfile((prev) => ({ ...prev, major }))
-    await setMajorRepo(major)
+    const prev = profileRef.current
+    setProfile((p) => ({ ...p, major }))
+    try {
+      await setMajorRepo(major)
+    } catch (e) {
+      setProfile(prev)
+      throw e
+    }
   }, [])
 
   const program = useMemo(
@@ -107,7 +144,7 @@ export function AppDataProvider({ children }: { children: React.ReactNode }) {
   )
 
   const value: AppDataValue = {
-    envOk, loading, email, profile, taken, overrides, program, progress, refresh, saveProfile, setMajor,
+    envOk, loading, error, email, profile, taken, overrides, program, progress, refresh, saveProfile, setMajor,
   }
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>
 }

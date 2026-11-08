@@ -9,6 +9,7 @@ import {
   addTaken, updateTaken, deleteTaken, bulkAddTaken,
 } from '@/lib/data/repository'
 import { termKey } from '@/lib/engine/grades'
+import { runMutation } from '@/lib/ui/errors'
 import type { TakenCourse } from '@/lib/types'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -20,27 +21,39 @@ export default function CoursesPage() {
 
   const terms = [...new Set(taken.map((t) => t.term))].sort((a, b) => termKey(b) - termKey(a))
 
-  async function handleAdd(c: TakenCourse) {
-    await addTaken(c)
-    await refresh()
-    toast.success('เพิ่มรายวิชาแล้ว')
+  async function handleAdd(c: TakenCourse): Promise<boolean> {
+    const ok = await runMutation(async () => {
+      await addTaken(c)
+      await refresh()
+    }, toast.error)
+    if (ok) toast.success('เพิ่มรายวิชาแล้ว')
+    return ok
   }
-  async function handleEdit(c: TakenCourse) {
-    if (!c.id) return
-    await updateTaken(c.id, c)
-    await refresh()
-    toast.success('แก้ไขแล้ว')
+  async function handleEdit(c: TakenCourse): Promise<boolean> {
+    if (!c.id) return false
+    const ok = await runMutation(async () => {
+      await updateTaken(c.id!, c)
+      await refresh()
+    }, toast.error)
+    if (ok) toast.success('แก้ไขแล้ว')
+    return ok
   }
-  async function handleDelete(id?: string) {
-    if (!id) return
-    await deleteTaken(id)
-    await refresh()
-    toast.success('ลบแล้ว')
+  async function handleDelete(id?: string): Promise<boolean> {
+    if (!id) return false
+    const ok = await runMutation(async () => {
+      await deleteTaken(id)
+      await refresh()
+    }, toast.error)
+    if (ok) toast.success('ลบแล้ว')
+    return ok
   }
-  async function handleImport(rows: TakenCourse[]) {
-    await bulkAddTaken(rows)
-    await refresh()
-    toast.success(`นำเข้า ${rows.length} วิชาแล้ว`)
+  async function handleImport(rows: TakenCourse[]): Promise<boolean> {
+    const ok = await runMutation(async () => {
+      await bulkAddTaken(rows)
+      await refresh()
+    }, toast.error)
+    if (ok) toast.success(`นำเข้า ${rows.length} วิชาแล้ว`)
+    return ok
   }
 
   return (

@@ -9,6 +9,8 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select'
 import { CircleCheck, CircleAlert } from 'lucide-react'
+import { describeDbError } from '@/lib/ui/errors'
+import { toast } from 'sonner'
 
 export default function PlanPage() {
   const { profile, program, taken, overrides, saveProfile } = useAppData()
@@ -16,6 +18,10 @@ export default function PlanPage() {
   const term = profile.currentTerm ?? 1
 
   const next = suggestNextTerm(program, taken, overrides, { year, term })
+
+  const save = (patch: Parameters<typeof saveProfile>[0]) => {
+    void saveProfile(patch).catch((e) => toast.error(describeDbError(e)))
+  }
   const totalCredits = next.recommended.reduce((s, x) => s + x.credits, 0)
 
   return (
@@ -25,14 +31,14 @@ export default function PlanPage() {
         <div className="ml-auto flex items-center gap-2">
           <Label className="text-sm text-muted-foreground">เทอมที่จะลง:</Label>
           <Select value={String(year)} items={{ '1': 'ปี 1', '2': 'ปี 2', '3': 'ปี 3', '4': 'ปี 4' }}
-            onValueChange={(v) => v && saveProfile({ currentYear: Number(v) })}>
+            onValueChange={(v) => v && save({ currentYear: Number(v) })}>
             <SelectTrigger size="sm" className="w-[90px]"><SelectValue /></SelectTrigger>
             <SelectContent>
               {[1, 2, 3, 4].map((y) => <SelectItem key={y} value={String(y)}>ปี {y}</SelectItem>)}
             </SelectContent>
           </Select>
           <Select value={String(term)} items={{ '1': 'เทอม 1', '2': 'เทอม 2', '3': 'เทอม 3' }}
-            onValueChange={(v) => v && saveProfile({ currentTerm: Number(v) })}>
+            onValueChange={(v) => v && save({ currentTerm: Number(v) })}>
             <SelectTrigger size="sm" className="w-[110px]"><SelectValue /></SelectTrigger>
             <SelectContent>
               {[1, 2, 3].map((t) => <SelectItem key={t} value={String(t)}>เทอม {t}</SelectItem>)}

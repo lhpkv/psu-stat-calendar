@@ -1,7 +1,7 @@
 import type { TakenCourse } from '@/lib/types'
 
 // เกรดที่ PSU ใช้ (รวมรูปแบบที่พบบ่อย)
-const GRADES = new Set(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'F', 'W', 'U', 'G', 'P', 'S', 'I', 'R'])
+const GRADES = new Set(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'F', 'W', 'U', 'G', 'P', 'S', 'I', 'R', 'Y', 'Q'])
 
 // รหัสวิชาขึ้นต้นบรรทัด: 145-101, 890-101G1, B03-001G4, 315-202G2B
 const CODE_AT_START = /^([0-9A-Za-z]{3}-\d{3}[A-Za-z0-9]*)\b\s*(.*)$/

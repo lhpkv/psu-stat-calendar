@@ -4,7 +4,9 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useAppData } from '@/hooks/use-app-data'
 import { createClient } from '@/lib/supabase/client'
+import { signOutOrThrow } from '@/lib/auth/sign-out'
 import { cn } from '@/lib/utils'
+import { toast } from 'sonner'
 import { GraduationCap, LayoutDashboard, BookOpenCheck, CalendarClock, LogOut } from 'lucide-react'
 
 const NAV = [
@@ -19,8 +21,12 @@ export function Sidebar() {
   const { email } = useAppData()
 
   async function signOut() {
-    await createClient().auth.signOut()
-    router.replace('/login')
+    try {
+      await signOutOrThrow(createClient().auth)
+      router.replace('/login')
+    } catch {
+      toast.error('ออกจากระบบไม่สำเร็จ ลองใหม่อีกครั้ง')
+    }
   }
 
   return (

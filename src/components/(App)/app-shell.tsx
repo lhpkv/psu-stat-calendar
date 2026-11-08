@@ -9,7 +9,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Skeleton } from '@/components/ui/skeleton'
 
 export function AppShell({ children }: { children: React.ReactNode }) {
-  const { envOk, loading } = useAppData()
+  const { envOk, loading, error, refresh } = useAppData()
 
   if (!envOk) {
     return (
@@ -42,7 +42,24 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <Sidebar />
       <div className="flex min-w-0 flex-1 flex-col">
         <TopBar />
-        <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-6 pb-24 md:px-8 md:py-8 md:pb-8">{children}</main>
+        <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-6 pb-24 md:px-8 md:py-8 md:pb-8">
+          {error && (
+            <Alert className="mb-4">
+              <AlertTitle>โหลดข้อมูลไม่สำเร็จ</AlertTitle>
+              <AlertDescription className="flex flex-wrap items-center gap-3">
+                <span>{error}</span>
+                <button
+                  type="button"
+                  className="underline underline-offset-4"
+                  onClick={() => { void refresh().catch(() => {}) }}
+                >
+                  ลองใหม่
+                </button>
+              </AlertDescription>
+            </Alert>
+          )}
+          {children}
+        </main>
       </div>
       <MobileNav />
     </div>

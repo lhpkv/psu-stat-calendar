@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/client'
+import { dedupeTaken } from './dedupe'
 import type { TakenCourse, Profile, Override, Major } from '@/lib/types'
 
 const DEFAULT_PROFILE: Profile = {
@@ -99,7 +100,8 @@ export async function bulkAddTaken(courses: TakenCourse[]): Promise<void> {
   const id = await uid()
   if (!id) throw new Error('ยังไม่ได้เข้าสู่ระบบ')
   const supabase = createClient()
-  const rows = courses.map((c) => ({
+  // ยุบแถวคีย์ซ้ำก่อน upsert — กัน Postgres 21000 เมื่อไฟล์นำเข้ามีวิชา/เทอมซ้ำกัน
+  const rows = dedupeTaken(courses).map((c) => ({
     user_id: id,
     code: c.code,
     name: c.name,

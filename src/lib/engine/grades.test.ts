@@ -17,6 +17,11 @@ describe('isPass', () => {
   it('ไม่ผ่านสำหรับ E,F,W,U,I และค่าว่าง', () => {
     for (const g of ['E', 'F', 'W', 'U', 'I', '']) expect(isPass(g)).toBe(false)
   })
+  it('เกรดโอน Y/Q ถือว่าผ่าน (เทียบโอนรายวิชา)', () => {
+    expect(isPass('Y')).toBe(true)
+    expect(isPass('Q')).toBe(true)
+    expect(isPass('y')).toBe(true)
+  })
 })
 
 describe('termKey', () => {

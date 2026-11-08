@@ -60,10 +60,21 @@ export function computeProgress(
 ): ProgressResult {
   const m = assign(program, taken, overrides)
 
+  const credited = (id: string) =>
+    (m.byRequirement.get(id) ?? []).reduce((s, t) => s + t.credits, 0)
+
   const requirements: ReqResult[] = program.requirements.map((r) => {
     const matched = m.byRequirement.get(r.id) ?? []
     const doneCredits = matched.reduce((s, t) => s + t.credits, 0)
-    const need = reqNeed(r)
+    // bucket "ส่วนที่เหลือ": ต้องใช้ยอดจริงของบล็อกรวม ไม่ใช่ตัวเลขคงที่
+    // เช่น กลุ่ม 1 เก็บได้ 14 นก. (วิชา 5 นก.) → bucket ที่เหลือต้องการแค่ 7 นก.
+    const need =
+      r.kind === 'bucket' && r.remainderOf
+        ? Math.min(
+            r.needCredits,
+            Math.max(0, r.remainderOf.total - credited(r.remainderOf.dependsOn)),
+          )
+        : reqNeed(r)
     const status: ReqResult['status'] =
       doneCredits >= need ? 'done' : doneCredits > 0 ? 'partial' : 'none'
     const missing: MissingItem[] =
@@ -86,7 +97,10 @@ export function computeProgress(
 
   const categories: CategoryResult[] = CATEGORY_ORDER.map((category) => {
     const rs = requirements.filter((r) => r.category === category)
-    const needCredits = rs.reduce((s, r) => s + r.needCredits, 0)
+    // ยอดที่ต้องได้ของหมวดใช้ค่าคงที่ของหลักสูตร (21/17 นก.) ไม่ใช่ need แบบไดนามิกของ bucket
+    const needCredits = program.requirements
+      .filter((r) => r.category === category)
+      .reduce((s, r) => s + reqNeed(r), 0)
     const doneCredits = Math.min(rs.reduce((s, r) => s + r.doneCredits, 0), needCredits)
     const missing = rs.flatMap((r) => r.missing)
     return { category, needCredits, doneCredits, requirements: rs, missing }

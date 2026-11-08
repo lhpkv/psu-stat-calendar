@@ -6,12 +6,13 @@ import {
 } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { parseSisTranscript } from '@/lib/engine/parse-transcript'
+import { describeDbError } from '@/lib/ui/errors'
 import type { TakenCourse } from '@/lib/types'
 import { ImportPreview } from '@/components/(App)/import-preview'
 import { toast } from 'sonner'
 import { FileUp, Loader2, Copy } from 'lucide-react'
 
-export function PdfImportButton({ onImport }: { onImport: (rows: TakenCourse[]) => Promise<void> }) {
+export function PdfImportButton({ onImport }: { onImport: (rows: TakenCourse[]) => Promise<boolean> }) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [rows, setRows] = useState<TakenCourse[]>([])
   const [rawText, setRawText] = useState('') // ข้อความที่อ่านได้ตอนแยกวิชาไม่สำเร็จ (diagnostic)
@@ -51,8 +52,11 @@ export function PdfImportButton({ onImport }: { onImport: (rows: TakenCourse[]) 
   async function confirm() {
     setBusy(true)
     try {
-      await onImport(rows)
-      setOpen(false)
+      const ok = await onImport(rows)
+      // คง dialog ไว้เมื่อบันทึกไม่สำเร็จ เพื่อให้ผู้ใช้ลองใหม่ได้
+      if (ok) setOpen(false)
+    } catch (e) {
+      toast.error(describeDbError(e))
     } finally {
       setBusy(false)
     }

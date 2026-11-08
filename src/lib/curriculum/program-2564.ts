@@ -95,9 +95,12 @@ function majorElectives(plan: Plan): Requirement[] {
       kind: 'bucket',
       id: 'major_elec_g2',
       category: 'major_elective',
-      label: `วิชาเลือกต่างคณะ/ภาควิชา ไม่เกิน ${plan === 'coop' ? 5 : 9} นก`,
+      // กลุ่ม 2 เป็น "ไม่เกิน" ไม่ใช่บังคับ — bucket นี้คือส่วนที่เหลือของ 21 นก.
+      // จึงรับได้ทั้งกลุ่ม 1 ที่เกิน 12 นก. และกลุ่ม 2 (โดยรวมแล้วกลุ่ม 2 ยังไม่เกิน 9/5 นก.)
+      label: `วิชาเลือกสาขาส่วนที่เหลือ (กลุ่ม 1 เพิ่มเติม หรือต่างคณะ) ไม่เกิน ${plan === 'coop' ? 5 : 9} นก`,
       needCredits: plan === 'coop' ? 5 : 9,
-      eligible: 'major_elec_g2',
+      remainderOf: { total: plan === 'coop' ? 17 : 21, dependsOn: 'major_elec_g1' },
+      eligible: 'major_elec_any',
       recYear: 3,
       recTerm: 1,
     },

@@ -1,7 +1,8 @@
 import type { TakenCourse } from '@/lib/types'
 
 // วิชาแบบวัดผ่าน/ไม่ผ่าน: G=Good, S=Satisfactory, P=Pass = "ผ่าน" (U=Unsatisfactory ไม่ผ่าน)
-const PASSING = new Set(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'P', 'S', 'G'])
+// Y/Q = เทียบโอนรายวิชา (ย้ายคณะ / สอบคัดเลือกใหม่) — นับเป็นหน่วยกิตที่ผ่านแล้ว
+const PASSING = new Set(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'P', 'S', 'G', 'Y', 'Q'])
 const POINTS: Record<string, number> = {
   A: 4, 'B+': 3.5, B: 3, 'C+': 2.5, C: 2, 'D+': 1.5, D: 1,
 }

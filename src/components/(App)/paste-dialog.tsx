@@ -8,11 +8,13 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { parseSisTranscript } from '@/lib/engine/parse-transcript'
+import { describeDbError } from '@/lib/ui/errors'
 import type { TakenCourse } from '@/lib/types'
 import { ImportPreview } from '@/components/(App)/import-preview'
 import { ClipboardPaste } from 'lucide-react'
+import { toast } from 'sonner'
 
-export function PasteDialog({ onImport }: { onImport: (rows: TakenCourse[]) => Promise<void> }) {
+export function PasteDialog({ onImport }: { onImport: (rows: TakenCourse[]) => Promise<boolean> }) {
   const [open, setOpen] = useState(false)
   const [fallbackTerm, setFallbackTerm] = useState('')
   const [text, setText] = useState('')
@@ -23,10 +25,15 @@ export function PasteDialog({ onImport }: { onImport: (rows: TakenCourse[]) => P
   async function confirm() {
     setBusy(true)
     try {
-      await onImport(parsed)
-      setOpen(false)
-      setText('')
-      setFallbackTerm('')
+      const ok = await onImport(parsed)
+      // ล้างข้อความเฉพาะเมื่อนำเข้าสำเร็จ — กัน transcript ที่วางไว้หายเมื่อ write ล้มเหลว
+      if (ok) {
+        setOpen(false)
+        setText('')
+        setFallbackTerm('')
+      }
+    } catch (e) {
+      toast.error(describeDbError(e))
     } finally {
       setBusy(false)
     }
