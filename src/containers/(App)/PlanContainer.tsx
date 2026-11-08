@@ -2,6 +2,7 @@
 
 import { useAppData } from '@/hooks/use-app-data'
 import { suggestNextTerm } from '@/lib/engine/progress'
+import { buildStudyPlan } from '@/lib/engine/study-plan'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Label } from '@/components/ui/label'
@@ -13,11 +14,12 @@ import { describeDbError } from '@/lib/ui/errors'
 import { toast } from 'sonner'
 
 export default function PlanPage() {
-  const { profile, program, taken, overrides, saveProfile } = useAppData()
+  const { profile, program, taken, overrides, saveProfile, progress } = useAppData()
   const year = profile.currentYear ?? 3
   const term = profile.currentTerm ?? 1
 
   const next = suggestNextTerm(program, taken, overrides, { year, term })
+  const studyPlan = buildStudyPlan(progress, { fromYear: 2, toYear: 4 })
 
   const save = (patch: Parameters<typeof saveProfile>[0]) => {
     void saveProfile(patch).catch((e) => toast.error(describeDbError(e)))
@@ -88,6 +90,43 @@ export default function PlanPage() {
                 </li>
               ))}
             </ul>
+          </CardContent>
+        </Card>
+      )}
+
+      {studyPlan.length > 0 && (
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="flex items-center justify-between text-base">
+              <span>แผนที่เหลือถึงจบ</span>
+              <span className="text-xs font-normal text-muted-foreground">ปี 2–4</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="divide-y divide-border/60 p-0">
+            {studyPlan.map((t) => (
+              <div key={`${t.year}-${t.term}`} className="flex gap-4 px-5 py-3 md:px-6">
+                <div className="w-20 shrink-0">
+                  <p className="text-sm font-medium text-foreground">ปี {t.year}</p>
+                  <p className="text-xs text-muted-foreground">เทอม {t.term}</p>
+                </div>
+                <ul className="min-w-0 flex-1 space-y-1">
+                  {t.items.map((item) => (
+                    <li key={item.id} className="flex items-baseline gap-2 text-sm">
+                      {item.code && (
+                        <span className="shrink-0 font-mono text-xs text-foreground/80">{item.code}</span>
+                      )}
+                      <span className="min-w-0 flex-1 truncate" title={item.name}>{item.name}</span>
+                      <span className="shrink-0 text-xs tabular-nums text-muted-foreground">
+                        {item.credits} นก.
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="hidden w-14 shrink-0 text-right text-xs tabular-nums text-muted-foreground sm:block">
+                  {t.credits} นก.
+                </div>
+              </div>
+            ))}
           </CardContent>
         </Card>
       )}
