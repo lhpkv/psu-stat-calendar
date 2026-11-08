@@ -18,9 +18,53 @@ export interface StudyPlanTerm {
   credits: number
 }
 
+export interface StudyPlanSplit {
+  /** วิชาที่ควรลงก่อนปี/เทอมปัจจุบันแต่ยังไม่ผ่าน */
+  overdue: StudyPlanTerm[]
+  /** วิชาที่เหลือตั้งแต่ปี/เทอมปัจจุบันเป็นต้นไป */
+  upcoming: StudyPlanTerm[]
+}
+
+/** แยกแผนตามชั้นปี/เทอมปัจจุบัน — รองรับนักศึกษาที่อยู่คนละปี (2, 3, 4) */
+export function splitStudyPlan(
+  plan: StudyPlanTerm[],
+  at: { year: number; term: number },
+): StudyPlanSplit {
+  const overdue: StudyPlanTerm[] = []
+  const upcoming: StudyPlanTerm[] = []
+
+  for (const item of plan) {
+    if (item.year < at.year || (item.year === at.year && item.term < at.term)) {
+      overdue.push(item)
+    } else {
+      upcoming.push(item)
+    }
+  }
+
+  return { overdue, upcoming }
+}
+
 export interface StudyPlanOptions {
   fromYear?: number
   toYear?: number
+}
+
+/**
+ * เดาชั้นปีปัจจุบันจากเทอมแรกที่นักศึกษาลงทะเบียน (ปีที่รับเข้า)
+ * เช่น รับเข้า 2567 และปัจจุบัน 2569 → ปี 3 (ไม่เกิน 4)
+ */
+export function inferCurrentYear(
+  taken: { term: string }[],
+  nowAcademicYear = new Date().getFullYear() + 543,
+): number | null {
+  const years = taken
+    .map((t) => Number((t.term || '').split('/')[1]))
+    .filter((y) => Number.isInteger(y) && y >= 2500)
+
+  if (years.length === 0) return null
+
+  const admissionYear = Math.min(...years)
+  return Math.min(4, Math.max(1, nowAcademicYear - admissionYear + 1))
 }
 
 function toItem(req: Requirement, res: ReqResult): StudyPlanItem | null {

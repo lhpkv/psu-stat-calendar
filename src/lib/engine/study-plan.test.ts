@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { buildProgram } from '@/lib/curriculum/program-2564'
 import { SEED_6710210764 } from '@/lib/curriculum/seed-6710210764'
 import { computeProgress } from './progress'
-import { buildStudyPlan } from './study-plan'
+import { buildStudyPlan, splitStudyPlan, inferCurrentYear } from './study-plan'
 
 const program = buildProgram('regular', 'ge2565')
 const emptyPlan = buildStudyPlan(computeProgress(program, [], []), { fromYear: 2, toYear: 4 })
@@ -40,5 +40,56 @@ describe('buildStudyPlan — แผนครอบคลุมปี 2–4', () 
     for (const t of emptyPlan) {
       expect(t.credits).toBe(t.items.reduce((s, i) => s + i.credits, 0))
     }
+  })
+})
+describe('splitStudyPlan — แยกคงค้างตามชั้นปีปัจจุบัน', () => {
+  const all = buildStudyPlan(computeProgress(buildProgram('regular', 'ge2565'), [], []), {
+    fromYear: 1,
+    toYear: 4,
+  })
+
+  it('ปี 2: วิชาปี 1 เป็นคงค้าง ที่เหลือเป็นแผนข้างหน้า', () => {
+    const { overdue, upcoming } = splitStudyPlan(all, { year: 2, term: 1 })
+    expect(overdue.every((t) => t.year < 2)).toBe(true)
+    expect(overdue.length).toBeGreaterThan(0)
+    expect(upcoming.every((t) => t.year > 2 || (t.year === 2 && t.term >= 1))).toBe(true)
+  })
+
+  it('ปี 3: วิชาปี 1–2 คงค้าง, ปี 3–4 อยู่ในแผนข้างหน้า', () => {
+    const { overdue, upcoming } = splitStudyPlan(all, { year: 3, term: 1 })
+    expect(overdue.every((t) => t.year < 3)).toBe(true)
+    expect(upcoming.some((t) => t.year === 3)).toBe(true)
+    expect(upcoming.some((t) => t.year === 4)).toBe(true)
+  })
+
+  it('ปี 4: ทุกอย่างก่อนปี 4 เป็นคงค้าง', () => {
+    const { overdue, upcoming } = splitStudyPlan(all, { year: 4, term: 1 })
+    expect(overdue.every((t) => t.year < 4)).toBe(true)
+    expect(upcoming.every((t) => t.year === 4)).toBe(true)
+  })
+
+  it('แยกได้ครบ ไม่มีเทอมหาย', () => {
+    const { overdue, upcoming } = splitStudyPlan(all, { year: 3, term: 1 })
+    expect(overdue.length + upcoming.length).toBe(all.length)
+  })
+})
+
+describe('inferCurrentYear — เดาชั้นปีจากเทอมแรกที่ลงทะเบียน', () => {
+  const t = (term: string) => ({ term })
+
+  it('รับ 2567 และปัจจุบัน 2569 → ปี 3', () => {
+    expect(inferCurrentYear([t('1/2567'), t('2/2568')], 2569)).toBe(3)
+  })
+
+  it('รับ 2567 และปัจจุบัน 2568 → ปี 2', () => {
+    expect(inferCurrentYear([t('1/2567')], 2568)).toBe(2)
+  })
+
+  it('ไม่เกินปี 4', () => {
+    expect(inferCurrentYear([t('1/2560')], 2569)).toBe(4)
+  })
+
+  it('ไม่มีข้อมูลเทอม → null', () => {
+    expect(inferCurrentYear([], 2569)).toBeNull()
   })
 })

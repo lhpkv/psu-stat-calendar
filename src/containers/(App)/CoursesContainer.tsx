@@ -9,9 +9,11 @@ import {
   addTaken, updateTaken, deleteTaken, bulkAddTaken,
 } from '@/lib/data/repository'
 import { termKey } from '@/lib/engine/grades'
+import { admissionYearOf, studyYearOfTerm } from '@/lib/engine/term-year'
 import { runMutation } from '@/lib/ui/errors'
 import type { TakenCourse } from '@/lib/types'
 import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { toast } from 'sonner'
 import { Plus, Pencil, Trash2 } from 'lucide-react'
@@ -20,6 +22,8 @@ export default function CoursesPage() {
   const { taken, refresh } = useAppData()
 
   const terms = [...new Set(taken.map((t) => t.term))].sort((a, b) => termKey(b) - termKey(a))
+  // ชั้นปีอ้างจากเทอมแรกที่ลงทะเบียน — แต่ละภาคการศึกษาจะบอกว่าเป็นปีไหน
+  const admissionYear = admissionYearOf(taken)
 
   async function handleAdd(c: TakenCourse): Promise<boolean> {
     const ok = await runMutation(async () => {
@@ -72,10 +76,19 @@ export default function CoursesPage() {
           </CardContent>
         </Card>
       ) : (
-        terms.map((term) => (
+        terms.map((term) => {
+          const studyYear = studyYearOfTerm(term, admissionYear)
+          return (
           <Card key={term}>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm">ภาคการศึกษา {term}</CardTitle>
+              <CardTitle className="flex items-center justify-between gap-2 text-sm">
+                <span>ภาคการศึกษา {term}</span>
+                {studyYear !== null && (
+                  <Badge variant="secondary" className="text-xs font-normal">
+                    ชั้นปีที่ {studyYear}
+                  </Badge>
+                )}
+              </CardTitle>
             </CardHeader>
             <CardContent className="p-0">
               <ul className="divide-y divide-border">
@@ -97,7 +110,8 @@ export default function CoursesPage() {
               </ul>
             </CardContent>
           </Card>
-        ))
+          )
+        })
       )}
     </div>
   )
