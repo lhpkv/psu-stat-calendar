@@ -1,8 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient, hasSupabaseEnv } from '@/lib/supabase/client'
+import { describeAuthError } from '@/lib/auth/messages'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -39,7 +40,16 @@ export default function LoginPage() {
   const [password, setPassword] = useState('')
   const [showPw, setShowPw] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [sendingReset, setSendingReset] = useState(false)
   const score = pwScore(password)
+
+  // ลิงก์ยืนยัน/รีเซ็ตจากอีเมลไม่ถูกต้องหรือหมดอายุ → แจ้งให้ผู้ใช้รู้
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    if (new URLSearchParams(window.location.search).get('error') === 'auth') {
+      toast.error('ลิงก์ยืนยันไม่ถูกต้องหรือหมดอายุ — ลองเข้าสู่ระบบหรือขอลิงก์ใหม่')
+    }
+  }, [])
 
   if (!envOk) {
     return (
@@ -85,24 +95,62 @@ export default function LoginPage() {
     e.preventDefault()
     setLoading(true)
     const supabase = createClient()
+    const cleanEmail = email.trim()
     try {
       if (mode === 'signin') {
-        const { error } = await supabase.auth.signInWithPassword({ email, password })
+        const { error } = await supabase.auth.signInWithPassword({ email: cleanEmail, password })
         if (error) throw error
         router.push('/dashboard')
       } else {
-        const { error } = await supabase.auth.signUp({
-          email,
+        const { data, error } = await supabase.auth.signUp({
+          email: cleanEmail,
           password,
+          options: { emailRedirectTo: `${window.location.origin}/auth/confirm` },
         })
         if (error) throw error
-        toast.success('สมัครสำเร็จ! ถ้าระบบให้ยืนยันอีเมล โปรดเช็คกล่องจดหมาย')
+
+        // Supabase ไม่คืน error เมื่ออีเมลซ้ำ (กัน enumeration) — สังเกตจาก identities ว่าง
+        if (data.user && Array.isArray(data.user.identities) && data.user.identities.length === 0) {
+          toast.error('อีเมลนี้มีบัญชีอยู่แล้ว — ลองเข้าสู่ระบบหรือใช้ "ลืมรหัสผ่าน"')
+          setMode('signin')
+          return
+        }
+        if (!data.session) {
+          toast.success('สมัครแล้ว — โปรดยืนยันอีเมลก่อนเข้าสู่ระบบ')
+          setMode('signin')
+          return
+        }
+
+        toast.success('สมัครสำเร็จ')
         router.push('/dashboard')
       }
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'เกิดข้อผิดพลาด')
+      const message = describeAuthError(err)
+      toast.error(message)
+      // อีเมลซ้ำ → พาผู้ใช้ไปหน้าเข้าสู่ระบบเพื่อใช้บัญชีเดิม
+      if (message.includes('มีบัญชีอยู่แล้ว')) setMode('signin')
     } finally {
       setLoading(false)
+    }
+  }
+
+  async function forgotPassword() {
+    const target = email.trim()
+    if (!target) {
+      toast.error('กรอกอีเมลก่อน แล้วกด "ลืมรหัสผ่าน" อีกครั้ง')
+      return
+    }
+    setSendingReset(true)
+    try {
+      const { error } = await createClient().auth.resetPasswordForEmail(target, {
+        redirectTo: `${window.location.origin}/auth/confirm?next=/auth/reset`,
+      })
+      if (error) throw error
+      toast.success('ถ้าอีเมลนี้มีบัญชี เราได้ส่งลิงก์ตั้งรหัสผ่านใหม่ไปแล้ว')
+    } catch (err) {
+      toast.error(describeAuthError(err))
+    } finally {
+      setSendingReset(false)
     }
   }
 
@@ -200,6 +248,19 @@ export default function LoginPage() {
             </div>
           )}
         </div>
+
+        {mode === 'signin' && (
+          <div className="flex justify-end">
+            <button
+              type="button"
+              onClick={forgotPassword}
+              disabled={sendingReset}
+              className="text-xs text-muted-foreground underline-offset-4 hover:text-foreground hover:underline disabled:opacity-60"
+            >
+              {sendingReset ? 'กำลังส่งลิงก์…' : 'ลืมรหัสผ่าน?'}
+            </button>
+          </div>
+        )}
 
         <Button
           type="submit"
